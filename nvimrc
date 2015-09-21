@@ -11,12 +11,10 @@ colo desert
 
 au BufEnter *.ass se ft=ass
 au BufEnter *.md  se ft=markdown
-au BufEnter */coreos-install/user_data se ft=yaml
-au BufEnter */nginx*.conf se ft=nginx
+au BufEnter */ng*.conf se ft=nginx
 
 au BufEnter /etc/hosts se ts=16 noet
 au BufEnter APKBUILD se ft=sh
-au BufEnter DefaultKeyBinding.dict se cin
 
 au FileType ass se nobomb nowrap
 au FileType c,cpp,nginx se cin
