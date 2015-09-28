@@ -12,6 +12,8 @@ colo desert
 au BufEnter *.ass se ft=ass
 au BufEnter *.md  se ft=markdown
 au BufEnter */ng*.conf se ft=nginx
+au BufEnter */*_vars/* se ft=yaml
+
 
 au BufEnter /etc/hosts se ts=16 noet
 au BufEnter APKBUILD se ft=sh
