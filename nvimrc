@@ -1,4 +1,4 @@
-se et sw=2 ts=2 lbr nu nuw=7
+se et sw=2 ts=2 lbr nu nuw=7 mouse=
 se ls=2 stl=%F\ %y%r%h%w%m\ =%02B\ (%l,%v)[%L/%02p%%]
 se swf dir=~/.vim/store bk bdir=~/.vim/store bkc=yes,breakhardlink
 au BufWritePre * let &bex = strftime('@%F-%T~')
