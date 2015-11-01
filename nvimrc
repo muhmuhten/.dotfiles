@@ -1,3 +1,5 @@
+se ai ar bs=2 dy=lastline enc=utf-8 hi=10000 hls is ls=2 sta wmnu
+
 se et sw=2 ts=2 lbr nu nuw=7 mouse=
 se ls=2 stl=%F\ %y%r%h%w%m\ =%02B\ (%l,%v)[%L/%02p%%]
 se swf dir=~/.vim/store bk bdir=~/.vim/store bkc=yes,breakhardlink
