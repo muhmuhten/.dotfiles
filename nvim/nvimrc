@@ -22,7 +22,7 @@ au BufEnter APKBUILD se ft=sh
 au FileType ass se nobomb nowrap
 au FileType c,cpp,nginx se cin
 au FileType crontab se bkc=yes
-au FileType gitconfig se ts=8 noet
+au FileType gitconfig se ts=8 sw=8 noet
 
 au FileType conf if getline(1) =~ '^#!.*\<ash\>' | se ft=sh | en
 
