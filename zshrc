@@ -27,7 +27,6 @@ export CLICOLOR=1
 export DOCKER_HOST=${DOCKER_HOST-unix:///tmp/docker.sock}
 export GEM_HOME=~/Sandbox/rubygems
 export PERL5LIB=~/Sandbox/perl5/lib/perl5
-export HOMEBREW_GITHUB_API_TOKEN=a427f4d6b4a342815d2efe7b6888a1813007bb32
 
 path=(/usr/bin /bin /usr/sbin /sbin /usr/libexec)
 path=(/usr/texbin $path)
@@ -58,8 +57,10 @@ zstyle ':completion:*' group-name ''
 
 bindkey -e
 
-alias gist='gist -p'
 which -p gls >&- || alias gls=ls
+
+alias brew='HOMEBREW_GITHUB_API_TOKEN=$(< ~/.gist) brew'
+alias gist='gist -p'
 alias ls='LC_COLLATE=C gls --color=auto -F'
 alias mpv='mpv --screenshot-format=png --screenshot-template=%F-%P'
 alias so='. ~/.zshrc'
