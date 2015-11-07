@@ -1,0 +1,23 @@
+[user]
+	name = Muh Muhten
+	email = muh.muhten@gmail.com
+
+[push]
+	default = simple
+
+[sendemail]
+	smtpserver = smtp.gmail.com
+	smtpserverport = 587
+	smtpencryption = tls
+	smtpuser = muh.muhten@gmail.com
+
+[clean]
+	requireForce = no
+[hub]
+	protocol = ssh
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+[tar "xz"]
+	command = xz
