@@ -23,6 +23,7 @@ export CLICOLOR=1
 export DOCKER_HOST=${DOCKER_HOST-unix:///tmp/docker.sock}
 export GEM_HOME=~/Sandbox/rubygems
 export PERL5LIB=~/Sandbox/perl5/lib/perl5
+export TZ=America/Toronto
 
 path=(/usr/local/sbin /usr/sbin /sbin /usr/libexec)
 path=(/usr/local/bin /usr/texbin /usr/bin /bin $path)
