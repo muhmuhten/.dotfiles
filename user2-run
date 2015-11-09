@@ -1,0 +1,12 @@
+#!/usr/bin/execlineb -P
+foreground {
+  if -n { tmux list-sessions }
+  if { loopwhilex -x 0 ping -w1 -c1 www.google.com }
+  tmux new-session -d irssi
+}
+
+getpid pid import -iu pid
+define dest /tmp/svscan${pid}
+if { mkdir $dest }
+if { pipeline { tar cC .s6 . } tar xC $dest }
+s6-svscan $dest

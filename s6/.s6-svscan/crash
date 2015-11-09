@@ -1,0 +1,2 @@
+#!/usr/bin/execlineb -S0
+echo s6-svscan panicked! message: $@
