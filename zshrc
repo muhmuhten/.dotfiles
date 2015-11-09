@@ -10,10 +10,9 @@ zshaddhistory() ((HISTSIZE = SAVEHIST = HISTCMD))
 precmd() {
   print -P '%B%F{yellow}(%n@%m) %F{blue}[%D %*] %F{green}[%!] %F{magenta}(%?) %F{cyan}(%~)%f'
 
-  set -- "%n@%m:%~"
   case $TERM in
-    screen) print -Pn "\ek$@:q\e\\" ;;
-    xterm*) print -Pn "\e]1;$@:q\a" ;;
+    screen) print -Pn "\ek%~\e\\" ;;
+    xterm*) print -Pn "\e]1;%n@%m:%~\a" ;;
   esac
 }
 PS1='%B%#%b '
