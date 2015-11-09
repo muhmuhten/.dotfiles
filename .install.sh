@@ -9,7 +9,12 @@ here=${PWD#$HOME/}
 git submodule update --init --depth=1
 
 for dot in *; do
-  file=$HOME/.$dot
-  dest=$here/$dot
-  [ -e "$file" ] || ln -sv "$dest" "$file"
+  file=$here/$dot
+  dest=$HOME/.$dot
+
+  [ -e "$dest" ] && continue
+  case $dot in
+    vimstore) mkdir -v "$dest" ;;
+    *) ln -sv "$file" "$dest" ;;
+  esac
 done
