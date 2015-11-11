@@ -10,21 +10,20 @@ no U <C-r>
 sy on
 filet plugin indent on
 
-au BufEnter *.ass se ft=ass
-au BufEnter *.md  se ft=markdown
-au BufEnter */ng*.conf se ft=nginx
-au BufEnter */*_vars/* se ft=yaml
+au BufEnter *.ass setf ass
+au BufEnter *.md setf markdown
+au BufEnter */ng*.conf setf nginx
+au BufEnter */*_vars/* setf yaml
 
+au BufEnter * if getline(1) =~ '^#!.*\<ash\>' | setf sh | en
+au BufEnter APKBUILD setf sh
 
 au BufEnter /etc/hosts se ts=16 noet
-au BufEnter APKBUILD se ft=sh
 
 au FileType asm,gitconfig se ts=8 sw=8 noet
 au FileType ass se nobomb nowrap
 au FileType c,cpp,nginx se cin
 au FileType crontab se bkc=yes
-
-au FileType conf if getline(1) =~ '^#!.*\<ash\>' | se ft=sh | en
 
 exe pathogen#infect()
 
