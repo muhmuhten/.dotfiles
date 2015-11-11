@@ -16,14 +16,16 @@ au BufEnter */ng*.conf setf nginx
 au BufEnter */*_vars/* setf yaml
 
 au BufEnter * if getline(1) =~ '^#!.*\<ash\>' | setf sh | en
-au BufEnter APKBUILD setf sh
+au BufEnter * if getline(1) =~ '^#!.*\<execlineb\>' | setf execlineb | en
 
+au BufEnter APKBUILD setf sh
 au BufEnter /etc/hosts se ts=16 noet
 
 au FileType asm,gitconfig se ts=8 sw=8 noet
 au FileType ass se nobomb nowrap
 au FileType c,cpp,nginx se cin
 au FileType crontab se bkc=yes
+au FileType execlineb se cin cino=+0
 
 exe pathogen#infect()
 
