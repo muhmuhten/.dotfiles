@@ -23,7 +23,7 @@ au BufEnter /etc/hosts se ts=16 noet
 
 au FileType asm,gitconfig se ts=8 sw=8 noet
 au FileType ass se nobomb nowrap
-au FileType c,cpp,nginx se cin
+au FileType c,cpp se cin
 au FileType crontab se bkc=yes
 au FileType execlineb se cin cino=+0 syn=conf
 
