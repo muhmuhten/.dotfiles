@@ -4,7 +4,8 @@ setopt hist_ignore_dups hist_ignore_space hist_reduce_blanks
 setopt share_history extended_history
 
 HISTFILE=~/.zsh_history
-HISTSIZE=$((`wc -l < $HISTFILE`))
+: >> "$HISTFILE"
+HISTSIZE=$((`wc -l < "$HISTFILE"`))
 zshaddhistory() ((HISTSIZE = SAVEHIST = HISTCMD))
 
 precmd() {
