@@ -1,5 +1,5 @@
 #!/bin/sh
-set -e
+set -eu
 
 case $0 in
   */*) cd "${0%/*}"
@@ -8,13 +8,20 @@ here=${PWD#$HOME/}
 
 git submodule update --init --depth=1
 
-for dot in *; do
-  file=$here/$dot
-  dest=$HOME/.$dot
+install() {
+  for dot; do
+    [ -e "$dot" ] || continue
+    file=$here/$dot
+    dest=$HOME/.$dot
 
-  [ -e "$dest" ] && continue
-  case $dot in
-    vimstore) mkdir -v "$dest" ;;
-    *) ln -sv "$file" "$dest" ;;
-  esac
-done
+    case $dot in
+      vimstore)
+        [ -e "$dest" ] || mkdir -v "$dest"
+        install "$dot"/*
+        ;;
+      *) [ -e "$dest" ] || ln -sv "$file" "$dest" ;;
+    esac
+  done
+}
+
+install *
