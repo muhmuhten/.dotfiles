@@ -1,4 +1,4 @@
-#!/usr/bin/execlineb -P
+#!/bin/execlineb -P
 background {
   if -n { tmux list-sessions }
   if { tmux new-session -d }
@@ -12,4 +12,4 @@ if { mkdir $dest }
 if { pipeline { tar cC .s6 . } tar xC $dest }
 
 emptyenv -p
-s6-svscan $dest
+s6-svscan -St0 $dest
