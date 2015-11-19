@@ -8,20 +8,20 @@ here=${PWD#$HOME/}
 
 git submodule update --init --depth=1
 
-install() {
+install_files() {
   for dot; do
     [ -e "$dot" ] || continue
-    file=$here/$dot
+    file=${here}/$dot
     dest=$HOME/.$dot
 
     case $dot in
       s6|vimstore)
         [ -e "$dest" ] || mkdir -v "$dest"
-        install "$dot"/.* "$dot"/*
+        (here=../$here install_files "$dot"/.* "$dot"/*)
         ;;
       *) [ -e "$dest" ] || ln -sv "$file" "$dest" ;;
     esac
   done
 }
 
-install *
+install_files *
