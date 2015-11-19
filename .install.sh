@@ -15,7 +15,7 @@ install() {
     dest=$HOME/.$dot
 
     case $dot in
-      vimstore)
+      s6|vimstore)
         [ -e "$dest" ] || mkdir -v "$dest"
         install "$dot"/.* "$dot"/*
         ;;
