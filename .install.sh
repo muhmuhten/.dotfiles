@@ -17,7 +17,7 @@ install() {
     case $dot in
       vimstore)
         [ -e "$dest" ] || mkdir -v "$dest"
-        install "$dot"/*
+        install "$dot"/.* "$dot"/*
         ;;
       *) [ -e "$dest" ] || ln -sv "$file" "$dest" ;;
     esac
