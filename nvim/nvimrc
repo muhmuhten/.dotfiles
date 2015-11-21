@@ -13,7 +13,6 @@ filet plugin indent on
 au BufEnter *.ass setf ass
 au BufEnter *.md setf markdown
 au BufEnter */ng*.conf setf nginx
-au BufEnter */*_vars/* setf yaml
 
 au BufEnter * if getline(1) =~ '^#!.*\<ash\>' | setf sh | en
 au BufEnter * if getline(1) =~ '^#!.*\<execlineb\>' | setf execlineb | en
