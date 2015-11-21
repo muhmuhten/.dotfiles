@@ -9,11 +9,9 @@ HISTSIZE=$((`wc -l < "$HISTFILE"`))
 zshaddhistory() ((HISTSIZE = SAVEHIST = HISTCMD))
 
 precmd() {
-  local m
-  m=`print -P %M`
-  m=${m%.local} # not interesting
-
-  print -P "%B%F{yellow}(%n@$m) %F{blue}[%D %*] %F{green}[%!] %F{magenta}(%?) %F{cyan}(%~)%f"
+  set -- "$?" "`print -P %M`" "$@"
+  set -- "$1" "${2%.local}" "${@:3}"
+  print -P "%B%F{yellow}(%n@$2) %F{blue}[%D %*] %F{green}[%!] %F{magenta}($1) %F{cyan}(%~)%f"
 
   case $TERM in
     screen) print -Pn "\ek%~\e\\" ;;
