@@ -10,7 +10,7 @@ zshaddhistory() ((HISTSIZE = SAVEHIST = HISTCMD))
 
 precmd() {
   set -- "$?" "`print -P %M`" "$@"
-  set -- "$1" "${2%.local}" "${@:3}"
+  set -- "$1" "${2%.local*}" "${@:3}"
   print -P "%B%F{yellow}(%n@$2) %F{blue}[%D %*] %F{green}[%!] %F{magenta}($1) %F{cyan}(%~)%f"
 
   case $TERM in
