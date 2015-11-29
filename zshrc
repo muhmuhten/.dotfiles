@@ -54,7 +54,7 @@ prefset() {
   export "$2=$1"
 }
 
-prefset EDITOR nvim vim vi
+prefset EDITOR vim vi
 prefset PAGER less more cat
 export LESS=MR
 
