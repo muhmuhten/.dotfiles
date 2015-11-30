@@ -1,0 +1,3 @@
+#!/bin/chmod -x
+*
+!.gitignore
