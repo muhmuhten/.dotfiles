@@ -62,7 +62,7 @@ which -p gls >&- || alias gls=ls
 
 alias brew='HOMEBREW_GITHUB_API_TOKEN=`< ~/.gist` brew'
 alias gist='gist -p'
-alias ls='LC_COLLATE=C gls --color=auto -F'
+alias ls='LC_COLLATE=C gls --color=auto -FN'
 alias mpv='mpv --screenshot-format=png --screenshot-template=%F-%P'
 alias so='. ~/.zshrc'
 alias vi='$EDITOR -O'
