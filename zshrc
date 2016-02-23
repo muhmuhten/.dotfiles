@@ -75,7 +75,12 @@ rm() {
     done
   fi
 
-  =rm "$@"
+  local rm
+  for rm in grm rm; do
+    which -p "$rm" >&- && break
+  done
+
+  command "$rm" -dv --one-file-system "$@"
 }
 
 dusort() { perl -E'%a=qw/G 9 M 6 K 3/;sub f{$_=pop;s/[GMK]/e$a{$&}/;$_}print sort{f($a)<=>f$b}<>' }
