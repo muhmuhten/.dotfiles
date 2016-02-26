@@ -82,6 +82,8 @@ syn match luaNumber  "\.\d\+\%([eE][-+]\=\d\+\)\=\>"
 " floating point number, without dot, with exponent
 syn match luaNumber  "\<\d\+[eE][-+]\=\d\+\>"
 
+" binary integer number
+syn match luaNumber "\<0[bB][01]\+\%([lL][lL]\)\=\>"
 " hex integer number
 syn match luaNumber "\<0[xX]\x\+\%([lL][lL]\)\=\>"
 " hex numbers
@@ -91,7 +93,7 @@ syn keyword luaFunc assert collectgarbage dofile error next
 syn keyword luaFunc print rawget rawset tonumber tostring type _VERSION
 syn keyword luaFunc getmetatable setmetatable ipairs pairs pcall xpcall
 syn keyword luaFunc _G load loadfile rawequal require select
-syn match   luaFunc /\<\%(package\|bit\|bit32\|coroutine\|math\|string\|table\|io\|os\|debug\)\.\I\i*\>/
+syn match   luaFunc /\<\%(package\|bit\|bit32\|coroutine\|math\|string\|table\|io\|os\|debug\|ffi\|jit\)\.\I\i*\>/
 syn keyword luaFunc getfenv setfenv loadstring module unpack
 syn keyword luaFunc _ENV rawlen
 
