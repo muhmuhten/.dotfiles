@@ -74,7 +74,7 @@ syn region luaString  start=+'+ end=+'+ skip=+\\\\\|\\'+ contains=luaSpecial,@Sp
 syn region luaString  start=+"+ end=+"+ skip=+\\\\\|\\"+ contains=luaSpecial,@Spell
 
 " integer number
-syn match luaNumber "\<\d\+\%([lL][lL]\)\=\>"
+syn match luaNumber "\<\d\+\%([uU]\=[lL][lL]\)\=\>"
 " floating point number, with dot, optional exponent
 syn match luaNumber  "\<\d\+\.\d*\%([eE][-+]\=\d\+\)\=\>"
 " floating point number, starting with a dot, optional exponent
@@ -83,9 +83,9 @@ syn match luaNumber  "\.\d\+\%([eE][-+]\=\d\+\)\=\>"
 syn match luaNumber  "\<\d\+[eE][-+]\=\d\+\>"
 
 " binary integer number
-syn match luaNumber "\<0[bB][01]\+\%([lL][lL]\)\=\>"
+syn match luaNumber "\<0[bB][01]\+\%([uU]\=[lL][lL]\)\=\>"
 " hex integer number
-syn match luaNumber "\<0[xX]\x\+\%([lL][lL]\)\=\>"
+syn match luaNumber "\<0[xX]\x\+\%([uU]\=[lL][lL]\)\=\>"
 " hex numbers
 syn match luaNumber "\<0[xX][[:xdigit:].]\+\%([pP][-+]\=\d\+\)\=\>"
 
