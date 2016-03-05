@@ -1,15 +1,14 @@
-#!/bin/execlineb -S0
-background {
-  elglob -0 u2d .user2.d/*
-  forx -p u2 { $u2d }
-  import -iu u2
-  $u2 $@
-}
+#!/bin/sh
+set -eu
 
-getpid pid import -iu pid
-define dest /tmp/svscan${pid}
-if { mkdir $dest }
-if { pipeline { tar cC .s6 . } tar xC $dest }
+for u2 in .user2.d/*; do
+  "$u2" "$@" &
+done
 
-emptyenv -p
-s6-svscan -St0 $dest
+dest=/tmp/svscan$$
+mkdir "$dest"
+tar chC .s6 . | tar xC "$dest"
+ln -s "$dest" ".svscan$$"
+s6-rename ".svscan$$" .svscan
+
+exec emptyenv -p s6-svscan -St0 "$dest"
