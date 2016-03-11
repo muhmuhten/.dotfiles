@@ -90,5 +90,5 @@ springe() { cat "$@" | ssh margot nc 127.0.0.1 2076 }
 splurge() { pbpaste | springe }
 
 attach-docker() {
-  socat unix-listen:/tmp/docker.sock,fork exec:"ssh core@${1-kirika} socat - /run/docker.sock"
+  socat unix-listen:/tmp/docker.sock,fork exec:"ssh core@${1-manaka} socat - /run/docker.sock"
 }
