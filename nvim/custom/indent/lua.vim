@@ -10,7 +10,7 @@ if exists("b:did_indent")
 endif
 let b:did_indent = 1
 
-setlocal indentexpr=GetLuaIndent()
+setlocal indentexpr=GetLuaIndent(v:lnum)
 
 " To make Vim call GetLuaIndent() when it finds '\s*end' or '\s*until'
 " on the current line ('else' is default and includes 'elseif').
@@ -23,9 +23,17 @@ if exists("*GetLuaIndent")
   finish
 endif
 
-function! GetLuaIndent()
+function! InLuaComment(lnum, ind)
+  if a:ind < 0
+    return 1
+  end
+
+  return synIDattr(synID(a:lnum, a:ind, 0), "name") == "luaComment"
+endfunction
+
+function! GetLuaIndent(lnum)
   " Find a non-blank line above the current line.
-  let prevlnum = prevnonblank(v:lnum - 1)
+  let prevlnum = prevnonblank(a:lnum - 1)
 
   " Hit the start of the file, use zero indent.
   if prevlnum == 0
@@ -35,29 +43,47 @@ function! GetLuaIndent()
   " Add a 'shiftwidth' after lines that start a block:
   " 'function', 'if', 'for', 'while', 'repeat', 'else', 'elseif', '{'
   let ind = indent(prevlnum)
-  let prevline = getline(prevlnum)
-  let midx = match(prevline, '^\s*\%(if\>\|for\>\|while\>\|repeat\>\|else\>\|elseif\>\|do\>\|then\>\)')
-  if midx == -1
-    let midx = match(prevline, '{\s*$')
-    if midx == -1
-      let midx = match(prevline, '\<function\>\s*\%(\k\|[.:]\)\{-}\s*(')
-    endif
-  endif
 
-  if midx != -1
-    " Add 'shiftwidth' if what we found previously is not in a comment and
-    " an "end" or "until" is not present on the same line.
-    if synIDattr(synID(prevlnum, midx + 1, 1), "name") != "luaComment" && prevline !~ '\<end\>\|\<until\>'
+  " Indentation changes based on previous line
+  let line = getline(prevlnum)
+
+  let indpat = '[({]\|\<\%(do\|then\|repeat\)\>'
+  let lastind = 0
+  while lastind >= 0
+    let lastind = matchend(line, indpat, lastind)
+    " Add 'shiftwidth' if what we found previously is not in a comment.
+    if !InLuaComment(prevlnum, lastind)
       let ind = ind + &shiftwidth
     endif
-  endif
+  endwhile
 
-  " Subtract a 'shiftwidth' on end, else, elseif, until and '}'
-  " This is the part that requires 'indentkeys'.
-  let midx = match(getline(v:lnum), '^\s*\%(end\>\|else\>\|elseif\>\|until\>\|}\)')
-  if midx != -1 && synIDattr(synID(v:lnum, midx + 1, 1), "name") != "luaComment"
-    let ind = ind - &shiftwidth
-  endif
+  let lastind = matchend(line, '^[[:space:]]*[^})[:space:]]')
+  while lastind >= 0
+    let lastind = matchend(line, '[})]', lastind)
+    if !InLuaComment(prevlnum, lastind)
+      let ind = ind - &shiftwidth
+    endif
+  endwhile
+
+  " Indentation changes based on current line
+  let line = getline(a:lnum)
+
+  let lastind = matchend(line, '^[[:space:]]*[^})[:space:]]')
+  while lastind >= 0
+    let lastind = matchend(line, '[})]', lastind)
+    if !InLuaComment(prevlnum, lastind)
+      let ind = ind + &shiftwidth
+    endif
+  endwhile
+
+  let undpat = '[})]\|\<\%(end\|else\%(if\)\?\|until\)\>'
+  let lastind = 0
+  while lastind >= 0
+    let lastind = matchend(line, undpat, lastind)
+    if !InLuaComment(a:lnum, lastind)
+      let ind = ind - &shiftwidth
+    endif
+  endwhile
 
   return ind
 endfunction
