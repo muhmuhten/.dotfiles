@@ -12,7 +12,7 @@ setlocal iskeyword+=:
 syn match ngxVariable '\$\(\w\+\|{\w\+}\)'
 syn match ngxVariableBlock '\$\(\w\+\|{\w\+}\)' contained
 syn match ngxVariableString '\$\(\w\+\|{\w\+}\)' contained
-syn region ngxBlock start=+^+ end=+{+ skip=+\${+ contains=ngxComment,ngxDirectiveBlock,ngxVariableBlock,ngxString oneline
+syn region ngxBlock start=+^+ end=+{+ skip=+\${+ contains=ngxComment,ngxDirectiveBlock,ngxVariableBlock,ngxString,ngxDirectiveThirdParty oneline
 syn region ngxString start=+\z(["']\)+ end=+\z1+ skip=+\\\\\|\\\z1+ contains=ngxVariableString
 syn match ngxComment ' *#.*$'
 
