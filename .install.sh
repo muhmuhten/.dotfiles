@@ -6,7 +6,7 @@ case $0 in
 esac
 here=${PWD#$HOME/}
 
-git submodule update --init --depth=1
+git submodule update --init
 
 install_files() {
   for dot; do
