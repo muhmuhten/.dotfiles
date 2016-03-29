@@ -21,6 +21,9 @@ precmd() {
 PS1='%B%#%b '
 PS2=$PS1
 
+export HOME=$HOME:A
+cd . # chase links
+
 export CLICOLOR=1
 export DOCKER_HOST=${DOCKER_HOST-unix:///tmp/docker.sock}
 export GEM_HOME=~/Sandbox/rubygems
