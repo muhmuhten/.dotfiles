@@ -47,11 +47,10 @@ bindkey -e
 
 prefset() {
   set 1 "$@"
-  [ ${(P)2+1} ] && return
   for 1 in ${@:3}; do
     which -p "$1" >&- && break
   done
-  export "$2=$1"
+  [ "${(P)2+1}" = "$1" ] || export "$2=$1"
 }
 
 prefset EDITOR vim vi
