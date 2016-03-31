@@ -3,9 +3,11 @@ setopt magic_equal_subst multios rc_quotes rm_star_silent
 setopt hist_ignore_dups hist_ignore_space hist_reduce_blanks
 setopt share_history extended_history
 
-HISTFILE=~/.zsh_history
-: >> "$HISTFILE"
-: ${HISTSIZE=$((`wc -l < "$HISTFILE"`))}
+if [ ! ${HISTFILE+1} ]; then
+  HISTFILE=~/.zsh_history
+  : >> "$HISTFILE"
+  HISTSIZE=$((`wc -l < "$HISTFILE"`))
+fi
 zshaddhistory() ((HISTSIZE = SAVEHIST = HISTCMD))
 
 precmd() {
