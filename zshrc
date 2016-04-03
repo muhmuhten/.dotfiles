@@ -96,7 +96,7 @@ rm() {
 dusort() { perl -E'%a=qw/G 9 M 6 K 3/;sub f{$_=pop;s/[GMK]/e$a{$&}/;$_}print sort{f($a)<=>f$b}<>' }
 dudusort() { du -hd1 "$@" | dusort }
 
-springe() { cat "$@" | ssh margot nc 127.0.0.1 2076 }
+springe() { cat "$@" | curl -F 'sprunge=<-' http://sprunge.us }
 splurge() { pbpaste | springe }
 
 attach-docker() {
