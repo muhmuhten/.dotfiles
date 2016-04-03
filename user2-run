@@ -2,7 +2,7 @@
 set -eu
 
 for u2 in .user2.d/*; do
-  "$u2" "$@" &
+	"$u2" "$@" &
 done
 
 dest=/tmp/svscan$$

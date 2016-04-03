@@ -2,13 +2,13 @@
 set -eu
 
 for path; do
-  # canonicalize if possible, if not w/e
-  which realpath > /dev/null && path=`realpath "$path"`
-  [ "${path:0:1}" = / ] || path=$PWD/$path
+	# canonicalize if possible, if not w/e
+	which realpath > /dev/null && path=`realpath "$path"`
+	[ "${path:0:1}" = / ] || path=$PWD/$path
 
-  dest=${path#$HOME/}
-  name=`IFS=:/; printf %s, $dest`
-  [ "$dest" = "$path" ] || dest=../$dest
+	dest=${path#$HOME/}
+	name=`IFS=:/; printf %s, $dest`
+	[ "$dest" = "$path" ] || dest=../$dest
 
-  ln -sv "$dest" ~/.bin/"$name"
+	ln -sv "$dest" ~/.bin/"$name"
 done
