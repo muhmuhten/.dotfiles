@@ -10,13 +10,13 @@ no U <C-r>
 sy on
 filet plugin indent on
 
-au BufEnter *.ass setf ass
-au BufEnter *.md setf markdown
+au BufEnter *.ass set ft=ass
+au BufEnter *.md set ft=markdown
 
-au BufEnter * if getline(1) =~ '^#!.*\<ash\>' | setf sh | en
-au BufEnter * if getline(1) =~ '^#!.*\<execlineb\>' | setf execlineb | en
+au BufEnter * if getline(1) =~ '^#!.*\<ash\>' | set ft=sh | en
+au BufEnter * if getline(1) =~ '^#!.*\<execlineb\>' | set ft=execlineb | en
 
-au BufEnter APKBUILD se ft=sh sw=8 ts=8 noet
+au BufEnter APKBUILD se ft=sh
 au BufEnter /etc/hosts se ts=16 noet
 
 au FileType asm se ts=8 sw=8 noet | no! <S-Tab> <Tab>
@@ -24,7 +24,7 @@ au FileType ass se nobomb nowrap
 au FileType c,cpp se cin
 au FileType crontab se bkc=yes
 au FileType execlineb se cin cino=+0 syn=conf
-au FileType asm se ts=8 sw=8 noet
+au FileType sh,zsh se sw=4 ts=4 noet
 
 au BufWritePost ~/public_html/*.html silent! !gzip -kf <afile>
 
