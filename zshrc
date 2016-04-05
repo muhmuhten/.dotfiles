@@ -61,14 +61,24 @@ if ! PATH= whence compinit >&-; then
 fi
 unset list_colors
 
+case $OSTYPE in
+	darwin*|freebsd*)
+		# BSD ls
+		alias ls='ls -F'
+		;;
+	linux-*)
+		alias ls='ls --color=auto -FN'
+		;;
+esac
+[ "$EDITOR" = vim ] && alias vi='vim -O'
+
 alias brew='HOMEBREW_GITHUB_API_TOKEN=`< ~/.gist` brew'
 alias gist='gist -p'
-alias ls='ls -F'
 alias mpv='mpv --screenshot-format=png --screenshot-template=%F-%P'
 alias so='. ~/.zshrc'
-alias vi='$EDITOR -O'
 
 rm() {
+	# avoid rm -r prompting when the only read-only things are git objects
 	local arg
 	if [ -n "${@[(r)-r]}" ]; then
 		for arg; do
@@ -76,12 +86,8 @@ rm() {
 		done
 	fi
 
-	local rm
-	for rm in grm rm; do
-		which -p "$rm" >&- && break
-	done
-
-	command "$rm" -dv --one-file-system "$@"
+	# breaks on busybox rm, but that's not a big deal
+	command "$rm" -dv "$@"
 }
 
 dusort() { perl -E'%a=qw/G 9 M 6 K 3/;sub f{$_=pop;s/[GMK]/e$a{$&}/;$_}print sort{f($a)<=>f$b}<>' }
