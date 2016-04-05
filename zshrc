@@ -87,7 +87,7 @@ rm() {
 	fi
 
 	# breaks on busybox rm, but that's not a big deal
-	command "$rm" -dv "$@"
+	command rm -dv "$@"
 }
 
 dusort() { perl -E'%a=qw/G 9 M 6 K 3/;sub f{$_=pop;s/[GMK]/e$a{$&}/;$_}print sort{f($a)<=>f$b}<>' }
