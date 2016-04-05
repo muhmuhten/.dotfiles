@@ -22,15 +22,14 @@ precmd() {
 }
 PS1='%B%#%b '
 PS2=$PS1
+bindkey -e
 
 export HOME=$HOME:A
 cd . # chase links
 
-export CLICOLOR=1
 export DOCKER_HOST=${DOCKER_HOST-unix:///tmp/docker.sock}
 export GEM_HOME=~/Sandbox/rubygems
 export PERL5LIB=~/Sandbox/perl5/lib/perl5
-export TZ=America/Toronto
 
 #sentinel at the end is like 7x faster, for about half of so execution time
 if [ "$path[-1]" != /var/empty/bogus/sentinel ]; then
@@ -40,6 +39,10 @@ if [ "$path[-1]" != /var/empty/bogus/sentinel ]; then
 	path=(`find -L ~/.bin -maxdepth 1 -type d 2>&-` $path)
 	export PATH
 fi
+
+whence vim >&- && EDITOR=vim || EDITOR=vi
+export EDITOR PAGER=less LESS=MR
+export CLICOLOR=1 TZ=America/Toronto
 
 # these two schemes are vastly identical, but translation is nontrivial
 export LSCOLORS=ExGxFxDxCxDbDeCbCeHbHe
@@ -57,21 +60,6 @@ if ! PATH= whence compinit >&-; then
 	zstyle ':completion:*' group-name ''
 fi
 unset list_colors
-
-bindkey -e
-
-prefset() {
-	local key=$1 val; shift
-	for val; do
-		[ "${(P)key}" = "$val" ] && return
-		whence -p "$val" >&- && break
-	done
-	export "$key=$val"
-}
-
-prefset EDITOR vim vi
-prefset PAGER less more cat
-[ "$PAGER" = less ] && export LESS=MR
 
 alias brew='HOMEBREW_GITHUB_API_TOKEN=`< ~/.gist` brew'
 alias gist='gist -p'
