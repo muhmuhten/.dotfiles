@@ -15,9 +15,12 @@ install_files() {
 		dest=$HOME/.$dot
 
 		case $dot in
-			bin|s6|vimstore|*.d)
+			bin|s6|ssh|vimstore|*.d)
 				[ -e "$dest" ] || mkdir -v "$dest"
-				(here=../$here install_files "$dot"/.* "$dot"/*)
+				(here=../$here install_files "$dot"/* "$dot"/.*)
+				;;
+			*/.install.*)
+				(cd ${dest%/*}; "$file")
 				;;
 			*) [ -e "$dest" ] || ln -sv "$file" "$dest" ;;
 		esac
