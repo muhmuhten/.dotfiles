@@ -31,14 +31,17 @@ export DOCKER_HOST=${DOCKER_HOST-unix:///tmp/docker.sock}
 export GEM_HOME=~/Sandbox/rubygems
 export PERL5LIB=~/Sandbox/perl5/lib/perl5
 
+zmodload -F zsh/stat b:zstat
+zstat -H bintime +mtime ~/.bin
 #sentinel at the end is like 7x faster, for about half of so execution time
-if [ "$path[-1]" != /var/empty/bogus/sentinel ]; then
-	path=(/var/empty/bogus/sentinel)
+if [ "${path[-1]##*/}" != "$bintime" ]; then
+	path=("/var/empty/sentinel/$bintime")
 	path=(/usr/local/sbin /usr/sbin /sbin /usr/libexec $path)
 	path=(/usr/local/bin /usr/texbin /usr/bin /bin $path)
 	path=(`find -L ~/.bin -maxdepth 1 -type d 2>&-` $path)
 	export PATH
 fi
+unset bintime
 
 whence vim >&- && EDITOR=vim || EDITOR=vi
 export EDITOR PAGER=less LESS=MR
