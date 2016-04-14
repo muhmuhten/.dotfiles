@@ -41,7 +41,7 @@ function! GetLuaIndent(lnum)
   " Indentation changes based on previous line
   let line = getline(prevlnum)
 
-  let indpat = '[({]\|\<\%(do\|then\|repeat\)\>'
+  let indpat = '[({]\|\<\%(function\|do\|then\|repeat\)\>'
   let lastind = 0
   while lastind >= 0
     let lastind = matchend(line, indpat, lastind)
