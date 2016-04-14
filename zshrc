@@ -11,9 +11,7 @@ fi
 zshaddhistory() ((HISTSIZE = SAVEHIST = HISTCMD))
 
 precmd() {
-	set -- "$?" "`print -P %M`" "$@"
-	set -- "$1" "${2%.local*}" "${@:3}"
-	print -P "%B%F{yellow}(%n@$2) %F{blue}[%D %*] %F{green}[%!] %F{magenta}($1) %F{cyan}(%~)%f"
+	print -P "%B%F{yellow}(%n@${HOST%.local*}) %F{blue}[%D %*] %F{green}[%!] %F{magenta}(%?) %F{cyan}(%~)%f"
 
 	case $TERM in
 		screen) print -Pn "\ek%~\e\\" ;;
@@ -54,9 +52,9 @@ list_colors='di=1;34 ln=1;36 or=1;36;40 mi=1;31 so=1;35 pi=1;33 ex=1;32 bd=1;33;
 export LS_COLORS=${list_colors// /:}
 if ! PATH= whence compinit >&-; then
 	autoload compinit
-	compinit
+	compinit -d ~/".zsh${ZSH_VERSION}_compdump@$HOST"
+	zstyle ':completion:*' cache-path ~/".zsh${ZSH_PATCHLEVEL}_compcache@$HOST"
 	zstyle ':completion:*' use-cache on
-	zstyle ':completion:*' cache-path ~/.zsh_cache
 	zstyle ':completion:*' completer _complete _ignored _match _correct _prefix _approximate
 	zstyle ':completion:*' max-errors 2
 	zstyle ':completion:*' list-colors ${(s: :)list_colors}
