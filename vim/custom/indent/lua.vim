@@ -29,7 +29,7 @@ function! GetLuaIndent(lnum)
   " Find a non-blank line above the current line.
   let prevlnum = prevnonblank(a:lnum - 1)
 
-  " Hit the start of the file, use zero indent.
+  " Nothing should be increasing the indent for the first line.
   if prevlnum == 0
     return 0
   endif
@@ -37,11 +37,13 @@ function! GetLuaIndent(lnum)
   " Add a 'shiftwidth' after lines that start a block:
   " 'function', 'if', 'for', 'while', 'repeat', 'else', 'elseif', '{'
   let ind = indent(prevlnum)
+  let indpat = '[({]\|\<\%(function\|do\|then\|repeat\)\>'
+  let undpat = '[})]\|\<\%(end\|else\%(if\)\?\|until\)\>'
 
   " Indentation changes based on previous line
   let line = getline(prevlnum)
 
-  let indpat = '[({]\|\<\%(function\|do\|then\|repeat\)\>'
+  " This loop is off by +&sw if the line doesn't end in a comment.
   let lastind = 0
   while lastind >= 0
     let lastind = matchend(line, indpat, lastind)
@@ -51,9 +53,11 @@ function! GetLuaIndent(lnum)
     endif
   endwhile
 
-  let lastind = matchend(line, '^[[:space:]]*[^})[:space:]]')
+  " When ending tokens are *not* the first thing on the line, defer the effect
+  " on indentation to the next line. This loop is off by -&sw as above.
+  let lastind = matchend(line, '^[[:space:]]*\%(' . undpat . '\)*')
   while lastind >= 0
-    let lastind = matchend(line, '[})]', lastind)
+    let lastind = matchend(line, undpat, lastind)
     if !InLuaComment(prevlnum, lastind)
       let ind = ind - &shiftwidth
     endif
@@ -62,15 +66,7 @@ function! GetLuaIndent(lnum)
   " Indentation changes based on current line
   let line = getline(a:lnum)
 
-  let lastind = matchend(line, '^[[:space:]]*[^})[:space:]]')
-  while lastind >= 0
-    let lastind = matchend(line, '[})]', lastind)
-    if !InLuaComment(prevlnum, lastind)
-      let ind = ind + &shiftwidth
-    endif
-  endwhile
-
-  let undpat = '[})]\|\<\%(end\|else\%(if\)\?\|until\)\>'
+  " Count all instances of the unindent patterns. This loop is off by -&sw.
   let lastind = 0
   while lastind >= 0
     let lastind = matchend(line, undpat, lastind)
@@ -78,6 +74,20 @@ function! GetLuaIndent(lnum)
       let ind = ind - &shiftwidth
     endif
   endwhile
+
+  " Count back the instances *after* the beginning of the line, which were
+  " because they're getting counted next line. This loop is off by +&sw.
+  let lastind = matchend(line, '^[[:space:]]*\%(' . undpat . '\)*')
+  while lastind >= 0
+    let lastind = matchend(line, undpat, lastind)
+    if !InLuaComment(a:lnum, lastind)
+      let ind = ind + &shiftwidth
+    endif
+  endwhile
+
+  if ind < 0
+    return 0
+  end
 
   return ind
 endfunction
