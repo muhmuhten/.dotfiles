@@ -37,7 +37,7 @@ function! GetLuaIndent(lnum)
   " Add a 'shiftwidth' after lines that start a block:
   " 'function', 'if', 'for', 'while', 'repeat', 'else', 'elseif', '{'
   let ind = indent(prevlnum)
-  let indpat = '[({]\|\<\%(function\|do\|then\|repeat\)\>'
+  let indpat = '[({]\|\<\%(function\|do\|then\|else\|repeat\)\>'
   let undpat = '[})]\|\<\%(end\|else\%(if\)\?\|until\)\>'
 
   " Indentation changes based on previous line
