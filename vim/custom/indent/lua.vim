@@ -43,7 +43,6 @@ function! GetLuaIndent(lnum)
   " Indentation changes based on previous line
   let line = getline(prevlnum)
 
-  " This loop is off by +&sw if the line doesn't end in a comment.
   let lastind = 0
   while lastind >= 0
     let lastind = matchend(line, indpat, lastind)
@@ -54,7 +53,7 @@ function! GetLuaIndent(lnum)
   endwhile
 
   " When ending tokens are *not* the first thing on the line, defer the effect
-  " on indentation to the next line. This loop is off by -&sw as above.
+  " on indentation to the next line.
   let lastind = matchend(line, '^[[:space:]]*\%(' . undpat . '\)*')
   while lastind >= 0
     let lastind = matchend(line, undpat, lastind)
@@ -66,7 +65,7 @@ function! GetLuaIndent(lnum)
   " Indentation changes based on current line
   let line = getline(a:lnum)
 
-  " Count all instances of the unindent patterns. This loop is off by -&sw.
+  " Count all instances of the unindent patterns.
   let lastind = 0
   while lastind >= 0
     let lastind = matchend(line, undpat, lastind)
@@ -76,7 +75,7 @@ function! GetLuaIndent(lnum)
   endwhile
 
   " Count back the instances *after* the beginning of the line, which were
-  " because they're getting counted next line. This loop is off by +&sw.
+  " because they're getting counted next line.
   let lastind = matchend(line, '^[[:space:]]*\%(' . undpat . '\)*')
   while lastind >= 0
     let lastind = matchend(line, undpat, lastind)
