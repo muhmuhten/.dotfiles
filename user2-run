@@ -11,4 +11,4 @@ tar chC .s6 . | tar xC "$dest"
 ln -s "$dest" ".svscan$$"
 s6-rename ".svscan$$" .svscan
 
-exec emptyenv -p s6-svscan -St0 "$dest"
+exec s6-svscan -St0 "$dest"
