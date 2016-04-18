@@ -92,8 +92,7 @@ rm() {
 	command rm -dv "$@"
 }
 
-dusort() { perl -E'%a=qw/G 9 M 6 K 3/;sub f{$_=pop;s/[GMK]/e$a{$&}/;$_}print sort{f($a)<=>f$b}<>' }
-dudusort() { du -hd1 "$@" | dusort }
+dudusort() { du -hd1 "$@" | sort -h }
 
 springe() { cat "$@" | curl -F 'sprunge=<-' http://sprunge.us }
 splurge() { pbpaste | springe }
