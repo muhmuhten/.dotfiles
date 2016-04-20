@@ -5,6 +5,8 @@ se ls=2 stl=%F\ %y%r%h%w%m\ =%02B\ (%l,%v)[%L/%02p%%]
 se swf dir=~/.vimstore bk bdir=~/.vimstore bkc=yes,breakhardlink
 au BufWritePre * let &bex = strftime('@%F-%T~')
 
+se t_kB=[Z
+
 no U <C-r>
 
 sy on
