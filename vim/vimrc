@@ -36,3 +36,5 @@ exe pathogen#infect()
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
 let g:SuperTabDefaultCompletionType = 'context'
+
+ru macros/matchit.vim
