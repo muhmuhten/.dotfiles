@@ -78,6 +78,7 @@ alias brew='HOMEBREW_GITHUB_API_TOKEN=`< ~/.gist` brew'
 alias gist='gist -p'
 alias mpv='mpv --screenshot-format=png --screenshot-template=%F-%P'
 alias so='. ~/.zshrc'
+alias sudo='sudo '
 
 rm() {
 	# avoid rm -r prompting when the only read-only things are git objects
