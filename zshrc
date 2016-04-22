@@ -53,7 +53,7 @@ export LS_COLORS=${list_colors// /:}
 if ! PATH= whence compinit >&-; then
 	autoload compinit
 	compinit -d ~/".zsh${ZSH_VERSION}_compdump@$HOST"
-	zstyle ':completion:*' cache-path ~/".zsh${ZSH_PATCHLEVEL}_compcache@$HOST"
+	zstyle ':completion:*' cache-path ~/".${ZSH_PATCHLEVEL}_compcache@$HOST"
 	zstyle ':completion:*' use-cache on
 	zstyle ':completion:*' completer _complete _ignored _match _correct _prefix _approximate
 	zstyle ':completion:*' max-errors 2
