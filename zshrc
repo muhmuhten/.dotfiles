@@ -77,6 +77,7 @@ esac
 alias brew'HOMEBREW_NO_ANALYTICS=1 HOMEBREW_GITHUB_API_TOKEN=`< ~/.gist` brew'
 alias gist='gist -p'
 alias mpv='mpv --screenshot-format=png --screenshot-template=%F-%P'
+alias rm='rm -dv'
 alias so='. ~/.zshrc'
 alias sudo='sudo '
 
@@ -90,7 +91,7 @@ rm() {
 	fi
 
 	# breaks on busybox rm, but that's not a big deal
-	command rm -dv "$@"
+	command rm "$@"
 }
 
 dudusort() { du -hd1 "$@" | sort -h }
