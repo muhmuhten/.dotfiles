@@ -74,7 +74,7 @@ case $OSTYPE in
 esac
 [ "$EDITOR" = vim ] && alias vi='vim -O'
 
-alias brew'HOMEBREW_NO_ANALYTICS=1 HOMEBREW_GITHUB_API_TOKEN=`< ~/.gist` brew'
+alias brew='HOMEBREW_NO_ANALYTICS=1 HOMEBREW_GITHUB_API_TOKEN=`< ~/.gist` brew'
 alias gist='gist -p'
 alias mpv='mpv --screenshot-format=png --screenshot-template=%F-%P'
 alias rm='rm -dv'
