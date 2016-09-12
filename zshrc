@@ -25,7 +25,6 @@ bindkey -e
 export HOME=$HOME:A
 cd . # chase links
 
-export DOCKER_HOST=${DOCKER_HOST-unix:///tmp/docker.sock}
 export GEM_HOME=~/Sandbox/rubygems
 export PERL5LIB=~/Sandbox/perl5/lib/perl5
 
@@ -98,7 +97,3 @@ dudusort() { du -hd1 "$@" | sort -h }
 
 springe() { cat "$@" | curl -F 'sprunge=<-' http://sprunge.us }
 splurge() { pbpaste | springe }
-
-attach-docker() {
-	socat unix-listen:/tmp/docker.sock,fork exec:"ssh core@${1-manaka} socat - /run/docker.sock"
-}
