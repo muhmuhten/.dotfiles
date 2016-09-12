@@ -1,6 +1,6 @@
 se ai noar bs=2 nocp dy=lastline enc=utf-8 hi=10000 hls is ls=2 sta wmnu
 
-se et sw=2 ts=2 lbr nu nuw=7 mouse=
+se sw=2 ts=2 lbr nu nuw=7 mouse=
 se ls=2 stl=%F\ %y%r%h%w%m\ =%02B\ (%l,%v)[%L/%02p%%]
 se swf dir=~/.vimstore bk bdir=~/.vimstore bkc=yes,breakhardlink
 au BufWritePre * let &bex = strftime('@%F-%T~')
@@ -20,14 +20,14 @@ au BufEnter * if getline(1) =~ '^#!.*\<ash\>' | set ft=sh | en
 au BufEnter * if getline(1) =~ '^#!.*\<execlineb\>' | set ft=execlineb | en
 
 au BufEnter APKBUILD se ft=sh
-au BufEnter /etc/hosts se ts=16 noet
+au BufEnter /etc/hosts se ts=16
 
-au FileType asm,fstab se ts=8 sw=8 noet | no! <S-Tab> <Tab>
+au FileType asm,fstab se ts=8 sw=8 | no! <S-Tab> <Tab>
 au FileType ass se nobomb nowrap
-au FileType c,cpp se cin
+au FileType c,cpp se cin cino+=:0 ts=4 sw=4
 au FileType crontab se bkc=yes
 au FileType execlineb se cin cino=+0 syn=conf
-au FileType sh,zsh se sw=4 ts=4 noet
+au FileType sh,zsh se sw=4 ts=4
 
 au BufWritePost ~/public_html/*.html silent! !gzip -kf <afile>
 
