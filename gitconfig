@@ -5,22 +5,8 @@
 [clean]
 	requireForce = no
 
-[filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
-	required = true
-
 [push]
 	default = simple
 
-[sendemail]
-	smtpserver = smtp.gmail.com
-	smtpserverport = 587
-	smtpencryption = tls
-	smtpuser = muh.muhten@gmail.com
-
 [tar "xz"]
 	command = xz
-
-[hub]
-	protocol = ssh
