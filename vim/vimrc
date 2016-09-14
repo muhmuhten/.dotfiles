@@ -24,10 +24,9 @@ au BufEnter /etc/hosts se ts=16
 
 au FileType asm,fstab se ts=8 | no! <S-Tab> <Tab>
 au FileType ass se nobomb nowrap
-au FileType c,cpp se cin cino+=:0 ts=4
+au FileType c,cpp se cin cino+=:0
 au FileType crontab se bkc=yes
 au FileType execlineb se cin cino=+0 syn=conf
-au FileType sh,zsh se ts=4
 
 au BufWritePost ~/public_html/*.html silent! !gzip -kf <afile>
 
