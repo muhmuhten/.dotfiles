@@ -27,6 +27,7 @@ au FileType ass se nobomb nowrap
 au FileType c,cpp se cin cino+=:0
 au FileType crontab se bkc=yes
 au FileType execlineb se cin cino=+0 syn=conf
+au FileType * let &sw = &ts
 
 au BufWritePost ~/public_html/*.html silent! !gzip -kf <afile>
 
