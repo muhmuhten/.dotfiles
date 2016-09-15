@@ -48,7 +48,7 @@ function! GetLuaIndent(lnum)
 		let lastind = matchend(line, indpat, lastind)
 		" Add 'shiftwidth' if what we found previously is not in a comment.
 		if !InLuaComment(prevlnum, lastind)
-			let ind = ind + &shiftwidth
+			let ind = ind + shiftwidth()
 		endif
 	endwhile
 
@@ -58,7 +58,7 @@ function! GetLuaIndent(lnum)
 	while lastind >= 0
 		let lastind = matchend(line, undpat, lastind)
 		if !InLuaComment(prevlnum, lastind)
-			let ind = ind - &shiftwidth
+			let ind = ind - shiftwidth()
 		endif
 	endwhile
 
@@ -70,7 +70,7 @@ function! GetLuaIndent(lnum)
 	while lastind >= 0
 		let lastind = matchend(line, undpat, lastind)
 		if !InLuaComment(a:lnum, lastind)
-			let ind = ind - &shiftwidth
+			let ind = ind - shiftwidth()
 		endif
 	endwhile
 
@@ -80,7 +80,7 @@ function! GetLuaIndent(lnum)
 	while lastind >= 0
 		let lastind = matchend(line, undpat, lastind)
 		if !InLuaComment(a:lnum, lastind)
-			let ind = ind + &shiftwidth
+			let ind = ind + shiftwidth()
 		endif
 	endwhile
 
