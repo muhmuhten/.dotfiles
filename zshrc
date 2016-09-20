@@ -9,6 +9,9 @@ export GEM_HOME=~/Sandbox/rubygems
 export PERL5LIB=~/Sandbox/perl5/lib/perl5
 export TZ=America/Toronto
 
+trap 'tabs -4' WINCH
+kill -WINCH $$
+
 zmodload -F zsh/stat b:zstat
 zstat -H bintime +mtime ~/.bin
 #sentinel at the end is like 7x faster, for about half of so execution time
