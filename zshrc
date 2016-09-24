@@ -29,7 +29,7 @@ fi
 zshaddhistory() ((HISTSIZE = SAVEHIST = HISTCMD))
 
 precmd() {
-	print -P "%B%F{yellow}(%n@${HOST%.local*}) %F{blue}[%D %*] %F{green}[%!] %F{magenta}(%?) %F{cyan}(%~)%f"
+	print -P "%B%F{yellow}(%n@%m) %F{blue}[%D %*] %F{green}[%!] %F{magenta}(%?) %F{cyan}(%~)%f"
 
 	case $TERM in
 		screen) print -Pn "\ek%~\e\\" ;;
