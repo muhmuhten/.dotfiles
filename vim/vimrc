@@ -16,10 +16,9 @@ au BufEnter *.ass set ft=ass
 au BufEnter *.md set ft=markdown
 au BufEnter fstab.* set ft=fstab
 
-au BufEnter * if getline(1) =~ '^#!.*\<ash\>' | set ft=sh | en
 au BufEnter * if getline(1) =~ '^#!.*\<execlineb\>' | set ft=execlineb | en
 
-au BufEnter APKBUILD se ft=sh
+au BufEnter nginx.conf set ft=nginx
 au BufEnter /etc/hosts se ts=16
 
 au FileType asm,fstab se ts=8 | no! <S-Tab> <Tab>
