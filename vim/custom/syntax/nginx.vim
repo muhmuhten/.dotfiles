@@ -2,7 +2,7 @@
 " Language: nginx.conf
 
 if exists("b:current_syntax")
-  finish
+	finish
 end
 
 setlocal iskeyword+=.
