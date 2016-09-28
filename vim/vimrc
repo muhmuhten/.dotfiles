@@ -25,7 +25,9 @@ au FileType asm,fstab se ts=8 | no! <S-Tab> <Tab>
 au FileType ass se nobomb nowrap
 au FileType c,cpp se cin cino+=:0
 au FileType crontab se bkc=yes
+au FileType eruby let &ft = b:eruby_subtype | se syn=eruby
 au FileType execlineb se cin cino=+0 syn=conf
+au FileType html se ts=2
 
 au BufEnter,FileType * let &sw = &ts
 
