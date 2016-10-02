@@ -55,12 +55,18 @@ if ! PATH= whence compinit >&-; then
 fi
 
 case $OSTYPE in
-	darwin*|freebsd*)
+	darwin*)
+		alias brew='HOMEBREW_NO_ANALYTICS=1 HOMEBREW_GITHUB_API_TOKEN=`< ~/.gist` brew'
+		alias gist='gist -p'
+		alias mpv='mpv --screenshot-format=png --screenshot-template=%F-%P'
+		;&
+	freebsd*)
 		# BSD ls; largely identical colour scheme, but translation is nontrivial
 		# these two schemes are vastly identical, but translation is nontrivial
 		export CLICOLOR=1
 		alias ls='LSCOLORS=ExGxFxDxCxDbDeCbCeHeHb ls -F'
 		;;
+
 	linux-*)
 		# GNU ls, hopefully; busybox lacks -N, but it's not worth testing for
 		alias ls="LS_COLORS='${list_colors// /:}' ls --color=auto -FN"
@@ -73,9 +79,6 @@ export EDITOR PAGER=less LESS=MR
 
 [ "$EDITOR" = vim ] && alias vi='vim -O'
 
-alias brew='HOMEBREW_NO_ANALYTICS=1 HOMEBREW_GITHUB_API_TOKEN=`< ~/.gist` brew'
-alias gist='gist -p'
-alias mpv='mpv --screenshot-format=png --screenshot-template=%F-%P'
 alias rm='rm -dv'
 alias so='. ~/.zshrc'
 alias sudo='sudo '
