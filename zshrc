@@ -81,7 +81,7 @@ export EDITOR PAGER=less LESS=MR
 
 alias rm='rm -dv'
 alias so='. ~/.zshrc'
-alias sudo='sudo '
+alias doas='doas '
 
 rm() {
 	# avoid rm -r prompting when the only read-only things are git objects
@@ -94,6 +94,17 @@ rm() {
 
 	# breaks on busybox rm, but that's not a big deal
 	command rm "$@"
+}
+
+doas() {
+	unfunction doas
+	if whence -p doas >&-; then
+		alias doas='doas '
+		command doas "$@"
+	else
+		alias doas='sudo '
+		command sudo "$@"
+	fi
 }
 
 dudusort() { du -hd1 "$@" | sort -h }
