@@ -1,6 +1,6 @@
 se ai noar bs=2 nocp dy=lastline enc=utf-8 hi=10000 hls is ls=2 sta wmnu
 
-se sw=0 ts=4 lbr nu nuw=7 mouse=
+se sw=0 ts=4 lbr nu nuw=7 mouse= cm=blowfish2
 se ls=2 stl=%F\ %y%r%h%w%m\ =%02B\ (%l,%v)[%L/%02p%%]
 se swf dir=~/.vimstore bk bdir=~/.vimstore bkc=yes,breakhardlink
 au BufWritePre * let &bex = strftime('@%F-%T~')
