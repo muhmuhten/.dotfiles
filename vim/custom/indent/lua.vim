@@ -15,7 +15,8 @@ setlocal indentexpr=GetLuaIndent(v:lnum)
 " To make Vim call GetLuaIndent() when it finds '\s*end' or '\s*until'
 " on the current line ('else' is default and includes 'elseif').
 setlocal indentkeys+=},),=end,=else,=until
-setlocal autoindent
+
+let b:undo_indent = "setlocal indentexpr< indentkeys<"
 
 function! InLuaComment(lnum, ind)
 	if a:ind < 0
