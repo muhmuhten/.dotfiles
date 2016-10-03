@@ -103,7 +103,6 @@ rm() {
 doas() {
 	unfunction doas
 	if whence -p doas >&-; then
-		alias doas='doas '
 		command doas "$@"
 	else
 		alias doas='sudo '
