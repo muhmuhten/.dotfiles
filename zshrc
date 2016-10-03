@@ -41,6 +41,8 @@ precmd() {
 PS1='%B%#%b '
 PS2=$PS1
 bindkey -e
+TMPPREFIX=${TMPPREFIX%/*}/$$:
+WORDCHARS=
 
 list_colors='di=1;34 ln=1;36 or=1;36;40 mi=1;31 so=1;35 pi=1;33 ex=1;32 bd=1;33;41 cd=1;33;44 su=1;32;41 sg=1;32;44 tw=1;37;44 ow=1;37;41'
 if ! PATH= whence compinit >&-; then
