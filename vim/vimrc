@@ -12,13 +12,12 @@ no U <C-r>
 sy on
 filet plugin indent on
 
-au BufEnter *.ass set ft=ass
-au BufEnter *.md set ft=markdown
-au BufEnter fstab.* set ft=fstab
+au BufEnter *.ass se ft=ass
+au BufEnter *.md se ft=markdown
 
-au BufEnter * if getline(1) =~ '^#!.*\<execlineb\>' | set ft=execlineb | en
+au BufEnter * if getline(1) =~ '^#!.*\<execlineb\>' | se ft=execlineb | en
 
-au BufEnter nginx.conf set ft=nginx
+au BufEnter nginx.conf se ft=nginx
 au BufEnter /etc/hosts se ts=16
 
 au FileType asm,fstab se ts=8 | no! <S-Tab> <Tab>
@@ -27,12 +26,13 @@ au FileType c,cpp se cin cino+=:0
 au FileType crontab se bkc=yes
 au FileType eruby let &ft = b:eruby_subtype | se syn=eruby
 au FileType execlineb se cin cino=+0 syn=conf
+au FileType fstab sy keyword fsDeviceKeyword contained devfs
 au FileType html,tex se ts=2
 
 " wall of shame: not updated for shiftwidth(), but I use them anyway
 au FileType css,java,perl,tex let &sw = &ts
 
-au BufWritePost ~/public_html/*.html silent! !gzip -kf <afile>
+au BufWritePost ~/public_html/*.html sil! !gzip -kf <afile>
 
 exe pathogen#infect('{local,bundle}/{}')
 
