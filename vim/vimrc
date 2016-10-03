@@ -26,7 +26,6 @@ au FileType c,cpp se cin cino+=:0
 au FileType crontab se bkc=yes
 au FileType eruby let &ft = b:eruby_subtype | se syn=eruby
 au FileType execlineb se cin cino=+0 syn=conf
-au FileType fstab sy keyword fsDeviceKeyword contained devfs
 au FileType html,tex se ts=2
 
 " wall of shame: not updated for shiftwidth(), but I use them anyway
