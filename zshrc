@@ -62,14 +62,14 @@ case $OSTYPE in
 		;&
 	freebsd*)
 		# BSD ls; largely identical colour scheme, but translation is nontrivial
-		# these two schemes are vastly identical, but translation is nontrivial
-		export CLICOLOR=1
-		alias ls='LSCOLORS=ExGxFxDxCxDbDeCbCeHeHb ls -F'
+		export CLICOLOR=1 LSCOLORS=ExGxFxDxCxDbDeCbCeHeHb
+		alias ls='ls -F'
 		;;
 
 	linux-*)
 		# GNU ls, hopefully; busybox lacks -N, but it's not worth testing for
-		alias ls="LS_COLORS='${list_colors// /:}' ls --color=auto -FN"
+		export LS_COLORS="${list_colors// /:}"
+		alias ls="ls --color=auto -FN"
 		;;
 esac
 unset list_colors
