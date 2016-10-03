@@ -5,28 +5,13 @@ se ls=2 stl=%F\ %y%r%h%w%m\ =%02B\ (%l,%v)[%L/%02p%%]
 se swf dir=~/.vimstore bk bdir=~/.vimstore bkc=yes,breakhardlink
 au BufWritePre * let &bex = strftime('@%F-%T~')
 
-se t_kB=[Z
-
 no U <C-r>
+se t_kB=[Z
+" reclaim <S-Tab> from supertab
+au VimEnter * no! <S-Tab> <Tab>
 
 sy on
 filet plugin indent on
-
-au BufEnter *.ass se ft=ass
-au BufEnter *.md se ft=markdown
-
-au BufEnter * if getline(1) =~ '^#!.*\<execlineb\>' | se ft=execlineb | en
-
-au BufEnter nginx.conf se ft=nginx
-au BufEnter /etc/hosts se ts=16
-
-au FileType asm,fstab se ts=8 | no! <S-Tab> <Tab>
-au FileType ass se nobomb nowrap
-au FileType c,cpp se cin cino+=:0
-au FileType crontab se bkc=yes
-au FileType eruby let &ft = b:eruby_subtype | se syn=eruby
-au FileType execlineb se cin cino=+0 syn=conf
-au FileType html,tex se ts=2
 
 " wall of shame: not updated for shiftwidth(), but I use them anyway
 au FileType css,java,perl,tex let &sw = &ts
@@ -34,9 +19,6 @@ au FileType css,java,perl,tex let &sw = &ts
 au BufWritePost ~/public_html/*.html sil! !gzip -kf <afile>
 
 exe pathogen#infect('{local,bundle}/{}')
-
-let g:html_indent_script1 = 'inc'
-let g:html_indent_style1 = 'inc'
 let g:SuperTabDefaultCompletionType = 'context'
 
 ru macros/matchit.vim
