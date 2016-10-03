@@ -25,7 +25,10 @@ if [ ! ${HISTFILE+1} ]; then
 	: >> "$HISTFILE"
 	HISTSIZE=$((`wc -l < "$HISTFILE"`))
 fi
-zshaddhistory() ((HISTSIZE = SAVEHIST = HISTCMD))
+# HISTCMD still refers to previous entry, so need at least +1 to avoid losing
+# the oldest entry; extra safety margin is in case I misunderstood something;
+# the minor memory cost is negligible in comparison
+zshaddhistory() ((HISTSIZE = SAVEHIST = HISTCMD+10))
 
 precmd() {
 	print -P "%B%F{yellow}(%n@%m) %F{blue}[%D %*] %F{green}[%!] %F{magenta}(%?) %F{cyan}(%~)%f"
