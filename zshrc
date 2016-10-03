@@ -12,14 +12,13 @@ export TZ=America/Toronto
 zmodload -F zsh/stat b:zstat
 zstat -H bintime +mtime ~/.bin
 #sentinel at the end is like 7x faster, for about half of so execution time
-if [ "${path[-1]##*/}" != "$bintime" ]; then
-	path=("/var/empty/sentinel/$bintime")
-	path=(/usr/local/sbin /usr/sbin /sbin $path)
-	path=(/usr/local/bin /usr/bin /bin $path)
-	path=(`find -L ~/.bin -maxdepth 1 -type d 2>&-` $path)
-	export PATH
+if [ "$dyntime" != "$bintime" ]; then
+	dyntime=$bintime
+	dynpath=(`find -L ~/.bin -maxdepth 1 -type d 2>&-`)
 fi
 unset bintime
+path=($dynpath /{usr/{local/,},}{s,}bin)
+export PATH
 
 if [ ! ${HISTFILE+1} ]; then
 	HISTFILE=~/.zsh_history
