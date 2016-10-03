@@ -1,0 +1,5 @@
+.dotfiles
+---------
+
+This is intended for cloning directly into `$HOME` and installed with the
+included shell script. I'm not sure why you'd want to, though.
