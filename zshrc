@@ -44,19 +44,19 @@ bindkey -e
 TMPPREFIX=${TMPPREFIX%/*}/$$:
 WORDCHARS=
 
-list_colors='di=1;34 ln=1;36 or=1;36;40 mi=1;31 so=1;35 pi=1;33 ex=1;32 bd=1;33;41 cd=1;33;44 su=1;32;41 sg=1;32;44 tw=1;37;44 ow=1;37;41'
 if ! PATH= whence compinit >&-; then
 	autoload compinit
 	compinit -d ~/".${ZSH_PATCHLEVEL}_compdump@$HOST"
-
-	zstyle ':completion:*' cache-path ~/".${ZSH_PATCHLEVEL}_compcache@$HOST"
-	zstyle ':completion:*' use-cache on
-	zstyle ':completion:*' completer _complete _ignored _match _correct _prefix _approximate
-	zstyle ':completion:*' max-errors 2
-	zstyle ':completion:*' list-colors ${(s: :)list_colors}
-	zstyle ':completion:*:descriptions' format '%F{blue}# %d%f%b'
-	zstyle ':completion:*' group-name ''
 fi
+
+list_colors='di=1;34 ln=1;36 or=1;36;40 mi=1;31 so=1;35 pi=1;33 ex=1;32 bd=1;33;41 cd=1;33;44 su=1;32;41 sg=1;32;44 tw=1;37;44 ow=1;37;41'
+zstyle ':completion:*' cache-path ~/".${ZSH_PATCHLEVEL}_compcache@$HOST"
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' completer _complete _ignored _match _correct _prefix _approximate
+zstyle ':completion:*' max-errors 2
+zstyle ':completion:*' list-colors ${(s: :)list_colors}
+zstyle ':completion:*:descriptions' format '%F{blue}# %d%f%b'
+zstyle ':completion:*' group-name ''
 
 case $OSTYPE in
 	darwin*)
