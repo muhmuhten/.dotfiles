@@ -110,7 +110,11 @@ doas() {
 	fi
 }
 
-dudusort() { du -hd1 "$@" | sort -h }
+dudusort() {
+	local sort=(sort -h)
+	whence gsort >&- && sort[1]=gsort
+	du -hd1 "$@" | $sort
+}
 
 springe() { cat "$@" | curl -F 'sprunge=<-' http://sprunge.us }
 splurge() { pbpaste | springe }
