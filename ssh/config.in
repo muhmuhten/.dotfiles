@@ -1,5 +1,4 @@
 HostKeyAlgorithms ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-ed25519,ssh-rsa
 Compression yes
-UseRoaming no
 
 SendEnv LANG LC_*
