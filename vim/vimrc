@@ -18,7 +18,7 @@ au FileType css,java,perl,tex let &sw = &ts
 
 au BufWritePost ~/public_html/*.html sil! !gzip -kf <afile>
 
-exe pathogen#infect('{local,bundle}/{}')
+exe pathogen#infect('{bundle,extra,local}/{}')
 let g:SuperTabDefaultCompletionType = 'context'
 
 ru macros/matchit.vim
