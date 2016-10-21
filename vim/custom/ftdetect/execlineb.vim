@@ -4,4 +4,4 @@ fu! s:check_execlineb()
 	en
 endf
 
-au BufEnter * call s:check_execlineb()
+au BufNewFile,BufRead * call s:check_execlineb()

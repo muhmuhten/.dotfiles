@@ -1,1 +1,1 @@
-au BufEnter nginx.conf se ft=nginx
+au BufNewFile,BufRead nginx.conf se ft=nginx

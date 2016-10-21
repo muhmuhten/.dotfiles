@@ -1,1 +1,1 @@
-au BufEnter *.ass setf ass
+au BufNewFile,BufRead *.ass setf ass
