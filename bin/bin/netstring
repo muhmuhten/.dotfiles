@@ -1,0 +1,6 @@
+#!/bin/sh
+
+for arg; do
+	printf %d:%s, ${#arg} "$arg"
+done
+echo
