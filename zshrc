@@ -67,7 +67,7 @@ case $OSTYPE in
 	freebsd*)
 		# BSD ls; largely identical colour scheme, but translation is nontrivial
 		export CLICOLOR=1 LSCOLORS=ExGxFxDxCxDbDeCbCeHeHb
-		alias ls='ls -F'
+		alias ls='LC_COLLATE=C ls -F'
 		;;
 
 	linux-*)
