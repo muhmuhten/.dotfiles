@@ -17,7 +17,7 @@ if [ "$dyntime" != "$bintime" ]; then
 	dynpath=(`find -L ~/.bin -maxdepth 1 -type d 2>&-`)
 fi
 unset bintime
-path=($dynpath /{usr/{local/,},}{s,}bin)
+path=($dynpath /{usr/local/,,usr/}{s,}bin)
 export PATH
 
 if [ ! ${HISTFILE+1} ]; then
