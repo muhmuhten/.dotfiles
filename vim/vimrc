@@ -6,6 +6,7 @@ se swf dir=~/.vimstore bk bdir=~/.vimstore bkc=yes,breakhardlink
 au BufWritePre * let &bex = strftime('@%F-%T~')
 
 no U <C-r>
+no ZE :cq<CR>
 se t_kB=[Z
 " reclaim <S-Tab> from supertab
 au VimEnter * no! <S-Tab> <Tab>
