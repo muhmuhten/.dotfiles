@@ -68,6 +68,7 @@ case $OSTYPE in
 		# BSD ls; largely identical colour scheme, but translation is nontrivial
 		export CLICOLOR=1 LSCOLORS=ExGxFxDxCxDbDeCbCeHeHb
 		alias ls='env LC_COLLATE=C ls -F'
+		[ -e /var/run/sudod.in ] && alias zfs='s6-sudo /var/run/sudod.in zfs'
 		;;
 
 	linux-*)
