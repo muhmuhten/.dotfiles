@@ -69,7 +69,11 @@ case $OSTYPE in
 		export CLICOLOR=1 LSCOLORS=ExGxFxDxCxDbDeCbCeHeHb
 		export TAPE=- # default file for tar
 		alias ls='env LC_COLLATE=C ls -F'
-		[ -e /var/run/sudod.in ] && alias zfs='s6-sudo /var/run/sudod.in zfs'
+
+		alias fscalate=doas
+		[ -e /var/run/sudod.in ] && alias fscalate='s6-sudo /var/run/sudod.in'
+		alias zfs='fscalate zfs'
+		alias zpool='fscalate zpool'
 		;;
 
 	linux-*)
