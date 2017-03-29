@@ -1,0 +1,10 @@
+#!/bin/sh
+set -eu
+
+[ "${1?no input}" = -a ] && exec find * -name '*.lua' -exec sh "$0" {} +
+
+for file; do
+	luajit -bl "$file" | awk '$2 ~ /^G[GS]ET$/ && $6 !~ /"(_G|_VERSION|arg|assert|bit|collectgarbage|coroutine|debug|dofile|error|gcinfo|getfenv|getmetatable|io|ipairs|jit|load|loadfile|loadstring|math|module|newproxy|next|os|package|pairs|pcall|print|rawequal|rawget|rawset|require|select|setfenv|setmetatable|string|table|tonumber|tostring|type|unpack|xpcall)"/' | while read line; do
+		printf '%s:\t%s\n' "$file" "$line"
+	done
+done
