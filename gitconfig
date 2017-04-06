@@ -8,5 +8,8 @@
 [push]
 	default = simple
 
+[pull]
+	ff = only
+
 [tar "xz"]
 	command = xz
