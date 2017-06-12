@@ -16,7 +16,7 @@ install_files() {
 
 		case $dot in
 			README|README.*) ;;
-			bin|ssh|vimstore|*.d)
+			bin|config|ssh|vimstore|*.d)
 				[ -e "$dest" ] || mkdir -v "$dest"
 				(here=../$here install_files "$dot"/* "$dot"/.*)
 				;;
