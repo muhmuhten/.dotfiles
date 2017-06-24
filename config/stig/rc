@@ -1,0 +1,5 @@
+unbind --context main q shift-up shift-down shift-left shift-right
+unbind --context torrent t+d t+D
+bind --context main q quit
+
+tab -ca ls
