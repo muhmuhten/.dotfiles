@@ -62,7 +62,7 @@ case $OSTYPE in
 	darwin*)
 		alias brew='HOMEBREW_NO_ANALYTICS=1 HOMEBREW_GITHUB_API_TOKEN=`< ~/.gist` brew'
 		alias gist='gist -p'
-		alias mpv='mpv --screenshot-format=png --screenshot-template=%F-%P'
+		alias mpv='mpv --screenshot-format=png --screenshot-template=~/Logs/caps/%F-%P'
 		;&
 	freebsd*)
 		# BSD ls; largely identical colour scheme, but translation is nontrivial
