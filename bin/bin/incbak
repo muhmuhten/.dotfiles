@@ -5,5 +5,5 @@ ind=$3
 dst=$4/$tag
 shift 4
 
-rsync -PaiH --exclude='*.part' --exclude=.DS_Store --link-dest="$ind" "$src/" "$@" "$dst/"
-rsync -PaiH --link-dest="$dst" "$dst/" "$ind/"
+rsync -aiH --progress --exclude='*.part' --exclude=.DS_Store --link-dest="$ind" "$src/" "$@" "$dst/"
+rsync -aiH --link-dest="$dst" "$dst/" "$ind/"
