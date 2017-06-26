@@ -1,5 +1,7 @@
-unbind --context main q shift-up shift-down shift-left shift-right
-unbind --context torrent t+d t+D
-bind --context main q quit
+unbind -c main q shift-up shift-down shift-left shift-right
+unbind -c torrent t+d t+D
+bind -c main q quit
+bind -c torrentlist s+u sort --add uploaded
+bind -c torrentlist s+U sort --add !uploaded
 
 tab -ca ls
