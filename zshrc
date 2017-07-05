@@ -34,8 +34,8 @@ precmd() {
 	print -P "%B%F{yellow}(%n@%m) %F{blue}[%D %*] %F{green}[%!] %F{magenta}(%?) %F{cyan}(%~)%f"
 
 	case $TERM in
-		screen) print -Pn "\ek%~\e\\" ;;
-		xterm*) print -Pn "\e]1;%n@%m:%~\a" ;;
+	screen) print -Pn "\ek%~\e\\" ;;
+	xterm*) print -Pn "\e]1;%n@%m:%~\a" ;;
 	esac
 }
 PS1='%B%#%b '
@@ -43,6 +43,11 @@ PS2=$PS1
 bindkey -e
 TMPPREFIX=${TMPPREFIX%/*}/$$:
 WORDCHARS=
+
+case $FPATH in
+~/*) ;;
+*) fpath=(~/.dotfiles/zsh_functions_ $fpath)  ;;
+esac
 
 if ! PATH= whence compinit >&-; then
 	autoload compinit
@@ -59,28 +64,28 @@ zstyle ':completion:*:descriptions' format '%F{blue}# %d%f%b'
 zstyle ':completion:*' group-name ''
 
 case $OSTYPE in
-	darwin*)
-		alias brew='HOMEBREW_NO_ANALYTICS=1 HOMEBREW_GITHUB_API_TOKEN=`< ~/.gist` brew'
-		alias gist='gist -p'
-		alias mpv='mpv --screenshot-format=png --screenshot-template=~/Logs/caps/%F-%P'
-		;&
-	freebsd*)
-		# BSD ls; largely identical colour scheme, but translation is nontrivial
-		export CLICOLOR=1 LSCOLORS=ExGxFxDxCxDbDeCbCeHeHb
-		export TAPE=- # default file for tar
-		alias ls='env LC_COLLATE=C ls -F'
+darwin*)
+	alias brew='HOMEBREW_NO_ANALYTICS=1 HOMEBREW_GITHUB_API_TOKEN=`< ~/.gist` brew'
+	alias gist='gist -p'
+	alias mpv='mpv --screenshot-format=png --screenshot-template=~/Logs/caps/%F-%P'
+	;&
+freebsd*)
+	# BSD ls; largely identical colour scheme, but translation is nontrivial
+	export CLICOLOR=1 LSCOLORS=ExGxFxDxCxDbDeCbCeHeHb
+	export TAPE=- # default file for tar
+	alias ls='env LC_COLLATE=C ls -F'
 
-		alias fscalate=doas
-		[ -e /var/run/sudod.in ] && alias fscalate='s6-sudo /var/run/sudod.in'
-		alias zfs='fscalate zfs'
-		alias zpool='fscalate zpool'
-		;;
+	alias fscalate=doas
+	[ -e /var/run/sudod.in ] && alias fscalate='s6-sudo /var/run/sudod.in'
+	alias zfs='fscalate zfs'
+	alias zpool='fscalate zpool'
+	;;
 
-	linux-*)
-		# GNU ls, hopefully; busybox lacks -N, but it's not worth testing for
-		export LS_COLORS="${list_colors// /:}"
-		alias ls="ls --color=auto -FN"
-		;;
+linux-*)
+	# GNU ls, hopefully; busybox lacks -N, but it's not worth testing for
+	export LS_COLORS="${list_colors// /:}"
+	alias ls="ls --color=auto -FN"
+	;;
 esac
 unset list_colors
 
