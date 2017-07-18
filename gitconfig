@@ -11,5 +11,5 @@
 [pull]
 	ff = only
 
-[tar "xz"]
-	command = xz
+[diff]
+	submodule = log
