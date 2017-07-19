@@ -14,7 +14,7 @@ zstat -H bintime +mtime ~/.bin
 #sentinel at the end is like 7x faster, for about half of so execution time
 if [ "$dyntime" != "$bintime" ]; then
 	dyntime=$bintime
-	dynpath=(`find -L ~/.bin -maxdepth 1 -type d 2>&-`)
+	dynpath=(`find -L ~/.bin -maxdepth 1 -type d 2> /dev/null`)
 fi
 unset bintime
 path=($dynpath /{usr/local/,,usr/}{s,}bin)
@@ -49,7 +49,7 @@ case $FPATH in
 *) fpath=(~/.dotfiles/zsh_functions_ $fpath)  ;;
 esac
 
-if ! PATH= whence compinit >&-; then
+if ! PATH= command -v compinit > /dev/null; then
 	autoload compinit
 	compinit -d ~/".${ZSH_PATCHLEVEL}_compdump@$HOST"
 fi
@@ -89,7 +89,7 @@ linux-*)
 esac
 unset list_colors
 
-whence vim >&- && EDITOR=vim || EDITOR=vim
+command -v vim > /dev/null && EDITOR=vim || EDITOR=vim
 export EDITOR PAGER=less LESS=MR
 
 [ "$EDITOR" = vim ] && alias vi='vim -O'
@@ -113,7 +113,7 @@ rm() {
 
 doas() {
 	unfunction doas
-	if whence -p doas >&-; then
+	if command -v -p doas > /dev/null; then
 		command doas "$@"
 	else
 		alias doas='sudo '
@@ -123,7 +123,7 @@ doas() {
 
 dudusort() {
 	local sort=(sort -h)
-	whence gsort >&- && sort[1]=gsort
+	command -v gsort > /dev/null && sort[1]=gsort
 	du -hd1 "$@" | $sort
 }
 
