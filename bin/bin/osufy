@@ -1,0 +1,41 @@
+#!/bin/sh
+set -eu
+n=0
+for opt; do
+	case $opt in
+	(-[^-]|-??*) n=$((n+1)) ;;
+	(*) break ;;
+	esac
+done
+
+exec_parallel() {
+	m=$#
+	k=0
+	while [ $((k+=1)) -le $n ]; do
+		case $1 in
+		(-[0-9]*)
+			set -- "$@" --bitrate="${1#-}" ;;
+		(*)
+			set -- "$@" "$1"
+		esac
+		shift
+	done
+	shift $((m-n))
+	exec xargs -0n2 -P"${ncpu=`sysctl -n hw.ncpu`}" opusenc "$@" --
+}
+
+feed_parallel() {
+	shift $n
+	case $1 in (--) shift ;; esac
+
+	for file; do
+		case $file in
+		# make input '-' Just Work -- output, uh, doesn't
+		(-) printf '%s\0%s\0' /dev/stdout stdin.opus ;;
+		(*) printf '%s\0%s\0' "$file" "${file%.*}.opus" ;;
+		esac
+	done
+}
+
+# clobbering stdout is undefined, but should work
+{ feed_parallel "$@" | exec_parallel "$@"; } 1<&0
