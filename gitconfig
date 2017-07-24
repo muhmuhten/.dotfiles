@@ -13,3 +13,6 @@
 
 [diff]
 	submodule = log
+
+[core]
+	excludesFile = ~/.dotfiles/gitignore_
