@@ -39,7 +39,7 @@ local function on_file_loaded(e)
 end
 
 local function on_playback_restart(e)
-	pos = mp.get_property "time-pos"
+	local pos = mp.get_property "time-pos"
 	if pos then
 		pos = tonumber(pos)
 	else
