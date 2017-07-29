@@ -21,7 +21,9 @@ exec_parallel() {
 		shift
 	done
 	shift $((m-n))
-	exec xargs -0n2 -P"${ncpu=`sysctl -n hw.ncpu`}" opusenc "$@" --
+	exec xargs -0n2 -P"${ncpu=`sysctl -n hw.ncpu`}" \
+		${LD_PRELOAD+env DYLD_FORCE_FLAT_NAMESPACE=1 \
+		DYLD_INSERT_LIBRARIES="$LD_PRELOAD"} opusenc "$@" --
 }
 
 feed_parallel() {
@@ -31,8 +33,8 @@ feed_parallel() {
 	for file; do
 		case $file in
 		# make input '-' Just Work -- output, uh, doesn't
-		(-) printf '%s\0%s\0' /dev/stdout stdin.opus ;;
-		(*) printf '%s\0%s\0' "$file" "${file%.*}.opus" ;;
+		(-) printf '%s\0%s\0' /dev/stdout "stdin.${opus_suf-opus}" ;;
+		(*) printf '%s\0%s\0' "$file" "${file%.*}.${opus_suf-opus}" ;;
 		esac
 	done
 }
