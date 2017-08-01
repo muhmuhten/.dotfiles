@@ -94,6 +94,7 @@ export EDITOR PAGER=less LESS=MR
 alias rm='rm -dv'
 alias so='. ~/.zshrc'
 alias doas='doas '
+command -v sudo > /dev/null && alias doas='sudo '
 
 rm() {
 	# avoid rm -r prompting when the only read-only things are git objects
@@ -108,16 +109,12 @@ rm() {
 	command rm "$@"
 }
 
-doas() {
-	unfunction doas
-	command -v sudo > /dev/null && alias doas='sudo '
-	doas "$@"
-}
-
 dudusort() {
-	local sort=(sort -h)
-	command -v gsort > /dev/null && sort[1]=gsort
-	du -hd1 "$@" | $sort
+	if command -v gsort > /dev/null; then
+		du -hd1 "$@" | gsort -h
+	else
+		du -hd1 "$@" | sort -h
+	fi
 }
 
 springe() { cat "$@" | curl -F 'sprunge=<-' http://sprunge.us }
