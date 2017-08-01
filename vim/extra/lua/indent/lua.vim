@@ -55,7 +55,7 @@ function! GetLuaIndent(lnum)
 
 	" When ending tokens are *not* the first thing on the line, defer the effect
 	" on indentation to the next line.
-	let lastix = matchend(line, '^[[:space:]]*\%(' . undpat . '\)*')
+	let lastix = matchend(line, '^\%([[:space:]]*\%(' . undpat . '\)\)*')
 	while lastix >= 0
 		let lastix = matchend(line, undpat, lastix)
 		if !InLuaComment(prevlnum, lastix)
@@ -77,7 +77,7 @@ function! GetLuaIndent(lnum)
 
 	" Count back the instances *after* the beginning of the line, which were
 	" because they're getting counted next line.
-	let lastix = matchend(line, '^[[:space:]]*\%(' . undpat . '\)*')
+	let lastix = matchend(line, '^\%([[:space:]]*\%(' . undpat . '\)\)*')
 	while lastix >= 0
 		let lastix = matchend(line, undpat, lastix)
 		if !InLuaComment(a:lnum, lastix)
@@ -85,15 +85,5 @@ function! GetLuaIndent(lnum)
 		endif
 	endwhile
 
-	let oldind = indent(prevlnum)
-
-	if dent == 0
-		return oldind
-	elseif dent > 0
-		return oldind + shiftwidth()
-	elseif oldind < shiftwidth()
-		return 0
-	else
-		return oldind - shiftwidth()
-	endif
+	return indent(prevlnum) + shiftwidth()*dent
 endfunction
