@@ -34,7 +34,8 @@ local function on_file_loaded(e)
 	local time = os.time()
 	local date = os.date("!%F %T", time)
 	append_log(name, "on_file_loaded", date, e.event, path)
-	last_file = {time, name, path, tonumber(mp.get_property "duration")}
+	-- this is a bullshit fallback, but we need elapsed <= dur/20
+	last_file = {time, name, path, tonumber(mp.get_property "duration" or 60)}
 	seen_zero = false
 end
 
