@@ -87,10 +87,9 @@ linux-*)
 esac
 unset list_colors
 
-command -v vim > /dev/null && EDITOR=vim || EDITOR=vim
-export EDITOR PAGER=less LESS=MR
-
+command -v vim > /dev/null && EDITOR=vim || EDITOR=vi
 [ "$EDITOR" = vim ] && alias vi='vim -O'
+export EDITOR PAGER=less LESS=MR
 
 alias rm='rm -dv'
 alias so='. ~/.zshrc'
@@ -111,12 +110,8 @@ rm() {
 
 doas() {
 	unfunction doas
-	if command -v -p doas > /dev/null; then
-		command doas "$@"
-	else
-		alias doas='sudo '
-		command sudo "$@"
-	fi
+	command -v sudo > /dev/null && alias doas='sudo '
+	doas "$@"
 }
 
 dudusort() {
