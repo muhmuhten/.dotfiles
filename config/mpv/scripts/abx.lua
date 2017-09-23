@@ -10,6 +10,7 @@ local function flop_audio()
 			end
 		end
 	end
+	if #audiolist <= 1 then return end
 	mp.set_property_number("aid", audiolist[sel % #audiolist + 1])
 end
 mp.add_key_binding("a", "flop-audio", flop_audio)
