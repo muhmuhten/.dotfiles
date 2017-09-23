@@ -18,17 +18,18 @@ setlocal indentkeys+=},),=end,=else,=until
 
 let b:undo_indent = "setlocal indentexpr< indentkeys<"
 
-function! InLuaComment(lnum, ind)
-	if a:ind < 0
-		return 1
-	end
-
-	return synIDattr(synID(a:lnum, a:ind, 0), "name") == "luaComment"
+function! IsLuaCode(lnum, ind)
+	let ty = synIDattr(synID(a:lnum, a:ind, 0), "name")
+	return ty != "" && ty != "luaComment" && ty[0:8] != "luaString"
 endfunction
 
 function! GetLuaIndent(lnum)
 	" Find a non-blank line above the current line.
 	let prevlnum = prevnonblank(a:lnum - 1)
+	" Anything goes if the previous line started inside a comment
+	if synIDattr(synID(prevlnum, 1, 0), "name") == "luaComment"
+		return -1
+	end
 
 	" Nothing should be increasing the indent for the first line.
 	if prevlnum == 0
@@ -48,7 +49,7 @@ function! GetLuaIndent(lnum)
 	while lastix >= 0
 		let lastix = matchend(line, indpat, lastix)
 		" Add 'shiftwidth' if what we found previously is not in a comment.
-		if !InLuaComment(prevlnum, lastix)
+		if IsLuaCode(prevlnum, lastix)
 			let dent = dent + 1
 		endif
 	endwhile
@@ -58,7 +59,7 @@ function! GetLuaIndent(lnum)
 	let lastix = matchend(line, '^\%([[:space:]]*\%(' . undpat . '\)\)*')
 	while lastix >= 0
 		let lastix = matchend(line, undpat, lastix)
-		if !InLuaComment(prevlnum, lastix)
+		if IsLuaCode(prevlnum, lastix)
 			let dent = dent - 1
 		endif
 	endwhile
@@ -70,7 +71,7 @@ function! GetLuaIndent(lnum)
 	let lastix = 0
 	while lastix >= 0
 		let lastix = matchend(line, undpat, lastix)
-		if !InLuaComment(a:lnum, lastix)
+		if IsLuaCode(a:lnum, lastix)
 			let dent = dent - 1
 		endif
 	endwhile
@@ -80,7 +81,7 @@ function! GetLuaIndent(lnum)
 	let lastix = matchend(line, '^\%([[:space:]]*\%(' . undpat . '\)\)*')
 	while lastix >= 0
 		let lastix = matchend(line, undpat, lastix)
-		if !InLuaComment(a:lnum, lastix)
+		if IsLuaCode(a:lnum, lastix)
 			let dent = dent + 1
 		endif
 	endwhile
