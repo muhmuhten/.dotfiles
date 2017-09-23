@@ -91,7 +91,6 @@ command -v vim > /dev/null && EDITOR=vim || EDITOR=vi
 [ "$EDITOR" = vim ] && alias vi='vim -O'
 export EDITOR PAGER=less LESS=MR
 
-alias rm='rm -dv'
 alias so='. ~/.zshrc'
 alias doas='doas '
 command -v sudo > /dev/null && alias doas='sudo '
@@ -106,7 +105,7 @@ rm() {
 	fi
 
 	# breaks on busybox rm, but that's not a big deal
-	command rm "$@"
+	command rm -dv "$@"
 }
 
 dudusort() {
