@@ -1,9 +1,6 @@
 [submodule "bin/rename"]
-	path = .submodules/rename
+	path = bin/rename
 	url = https://github.com/ap/rename
-[submodule "vim/bundle/vim-pathogen"]
-	path = .submodules/vim-pathogen
-	url = https://github.com/tpope/vim-pathogen.git
-[submodule "vim/bundle/supertab"]
-	path = .submodules/supertab
+[submodule "vim/pack/contrib/start/supertab"]
+	path = vim/pack/contrib/start/supertab
 	url = https://github.com/ervandew/supertab.git
