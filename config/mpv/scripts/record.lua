@@ -28,8 +28,9 @@ local function on_end_file(e)
 end
 
 local function on_file_loaded(e)
-	local path = utils.join_path(utils.getcwd(), mp.get_property "path")
 	local name = mp.get_property "filename/no-ext"
+	if not name then return end
+	local path = utils.join_path(utils.getcwd(), mp.get_property "path")
 
 	local time = os.time()
 	local date = os.date("!%F %T", time)
