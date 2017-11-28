@@ -11,7 +11,7 @@ git submodule update --init
 install_files() {
 	for dot; do
 		[ -e "$dot" ] || continue
-		file=${here}/$dot
+		file=$here/$dot
 		dest=$HOME/.$dot
 
 		case $dot in
