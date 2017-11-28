@@ -79,7 +79,7 @@ freebsd*)
 	alias zpool='fscalate zpool'
 	;;
 
-linux-*)
+linux-*|msys)
 	# GNU ls, hopefully; busybox lacks -N, but it's not worth testing for
 	export LS_COLORS="${list_colors// /:}"
 	alias ls="ls --color=auto -FN"
