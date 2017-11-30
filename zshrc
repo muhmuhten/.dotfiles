@@ -33,7 +33,7 @@ precmd() {
 
 	case $TERM in
 	screen) print -Pn "\ek%~\e\\" ;;
-	xterm*) print -Pn "\e]1;%n@%m:%~\a" ;;
+	xterm*) print -Pn "\e]2;%n@%m:%~\a" ;;
 	esac
 }
 PS1='%B%#%b '
