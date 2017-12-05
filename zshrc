@@ -39,6 +39,9 @@ precmd() {
 PS1='%B%#%b '
 PS2=$PS1
 bindkey -e
+# mintty alt-Right/Left
+bindkey '^[[1;3C' forward-word
+bindkey '^[[1;3D' backward-word
 TMPPREFIX=${TMPPREFIX%/*}/$$:
 WORDCHARS=
 
