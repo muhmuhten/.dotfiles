@@ -48,7 +48,7 @@ syn region luaElseifThen contained transparent matchgroup=luaCond start="\v<else
 syn keyword luaElse contained else
 
 " do ... end
-syn region luaBlock transparent matchgroup=luaStatement start="\v<do>" end="\v<end>" contains=ALLBUT,luaTodo,luaSpecial,luaElseifThen,luaElse,luaThenEnd,luaIn
+syn region luaBlock transparent matchgroup=luaRepeat start="\v<do>" end="\v<end>" contains=ALLBUT,luaTodo,luaSpecial,luaElseifThen,luaElse,luaThenEnd,luaIn
 
 " repeat ... until
 syn region luaLoopBlock transparent matchgroup=luaRepeat start="\v<repeat>" end="\v<until>" contains=ALLBUT,luaTodo,luaSpecial,luaElseifThen,luaElse,luaThenEnd,luaIn

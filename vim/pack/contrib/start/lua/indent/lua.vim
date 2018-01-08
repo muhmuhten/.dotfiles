@@ -4,87 +4,133 @@
 " First Author:	Max Ischenko <mfi 'at' ukr.net>
 " Last Change:	2016 Jan 10
 
-" Only load this indent file when no other was loaded.
 if exists("b:did_indent")
 	finish
 endif
 let b:did_indent = 1
 
 setlocal indentexpr=GetLuaIndent(v:lnum)
-
-" To make Vim call GetLuaIndent() when it finds '\s*end' or '\s*until'
-" on the current line ('else' is default and includes 'elseif').
-setlocal indentkeys+=},),=end,=else,=until
-
+setlocal indentkeys+=},),=do,=until,=then,=else,=end
 let b:undo_indent = "setlocal indentexpr< indentkeys<"
 
-function! IsLuaCode(lnum, ind)
+function! s:is_code(lnum, ind)
 	let ty = synIDattr(synID(a:lnum, a:ind, 0), "name")
-	return ty != "" && ty != "luaComment" && ty[0:8] != "luaString"
+	return ty != "luaComment" && ty != "luaString"
 endfunction
 
+function! s:words(lnum)
+	let out = []
+	let s1 = split(getline(a:lnum), '\v<|>')
+	for word in s1
+		" 0 on match, -1 on non-words
+		if match(word, '\v<') == -1
+			call extend(out, split(word, '\v\s*'))
+		else
+			call add(out, word)
+		endif
+	endfor
+	return out
+endfunction
+
+function! GetWords(lnum)
+	return s:words(a:lnum)
+endfunction
+
+let s:prices = {
+			\"(": 1,
+			\")": -1,
+			\"do": 0,
+			\"else": 0,
+			\"elseif": 0,
+			\"end": -1,
+			\"for": 1,
+			\"function": 1,
+			\"if": 1,
+			\"repeat": 1,
+			\"then": 0,
+			\"until": -1,
+			\"while": 1,
+			\"{": 1,
+			\"}": -1}
+
 function! GetLuaIndent(lnum)
-	" Find a non-blank line above the current line.
-	let prevlnum = prevnonblank(a:lnum - 1)
-	" Anything goes if the previous line started inside a comment
-	if synIDattr(synID(prevlnum, 1, 0), "name") == "luaComment"
+	if a:lnum <= 1
+		return 0
+	end
+
+	if !s:is_code(a:lnum, 1)
 		return -1
 	end
 
-	" Nothing should be increasing the indent for the first line.
-	if prevlnum == 0
-		return 0
+	let debt = 0
+	let seendos = []
+
+	for word in s:words(a:lnum)
+		if get(s:prices, word, 1) <= 0
+			let debt -= 1
+			if word == "do"
+				call add(seendos, -1)
+			endif
+		endif
+		if get(s:prices, word) >= 0
+			break
+		endif
+	endfor
+
+	let lnum = a:lnum
+	"echo [lnum, debt]
+	let done = 0
+	while !done && lnum > 1
+		let lnum = prevnonblank(lnum-1)
+		if lnum <= 0
+			let lnum = 1
+			break
+		endif
+
+		for word in reverse(s:words(lnum))
+			let price = get(s:prices, word, 2)
+			if price == 2
+				continue
+			endif
+
+			if word == "do"
+				call add(seendos, debt)
+			elseif word == "for" || word == "while"
+				while len(seendos)
+					if remove(seendos, -1) >= debt
+						break
+					endif
+
+					let debt += 1
+				endwhile
+			endif
+			"echo [word, debt, seendos]
+
+			let debt += price
+			if debt >= 0
+				let done = 1
+			endif
+			"echo [lnum, debt, price, word]
+		endfor
+	endwhile
+
+	"echo ["dos", seendos]
+	if debt >= 0
+		let done = 1
 	endif
 
-	" Add a 'shiftwidth' after lines that start a block:
-	" 'function', 'if', 'for', 'while', 'repeat', 'else', 'elseif', '{'
-	let indpat = '[({]\|\<\%(function\|do\|then\|else\|repeat\)\>'
-	let undpat = '[})]\|\<\%(end\|else\%(if\)\?\|until\)\>'
-	let dent = 0
-
-	" Indentation changes based on previous line
-	let line = getline(prevlnum)
-
-	let lastix = 0
-	while lastix >= 0
-		let lastix = matchend(line, indpat, lastix)
-		" Add 'shiftwidth' if what we found previously is not in a comment.
-		if IsLuaCode(prevlnum, lastix)
-			let dent = dent + 1
+	"echo s:words(lnum)
+	for word in s:words(lnum)
+		if get(s:prices, word, 1) <= 0 && word != "do"
+			let debt += 1
 		endif
-	endwhile
-
-	" When ending tokens are *not* the first thing on the line, defer the effect
-	" on indentation to the next line.
-	let lastix = matchend(line, '^\%([[:space:]]*\%(' . undpat . '\)\)*')
-	while lastix >= 0
-		let lastix = matchend(line, undpat, lastix)
-		if IsLuaCode(prevlnum, lastix)
-			let dent = dent - 1
+		if get(s:prices, word) >= 0
+			break
 		endif
-	endwhile
+	endfor
 
-	" Indentation changes based on current line
-	let line = getline(a:lnum)
+	let debt += len(seendos)
 
-	" Count all instances of the unindent patterns.
-	let lastix = 0
-	while lastix >= 0
-		let lastix = matchend(line, undpat, lastix)
-		if IsLuaCode(a:lnum, lastix)
-			let dent = dent - 1
-		endif
-	endwhile
-
-	" Count back the instances *after* the beginning of the line, which were
-	" because they're getting counted next line.
-	let lastix = matchend(line, '^\%([[:space:]]*\%(' . undpat . '\)\)*')
-	while lastix >= 0
-		let lastix = matchend(line, undpat, lastix)
-		if IsLuaCode(a:lnum, lastix)
-			let dent = dent + 1
-		endif
-	endwhile
-
-	return indent(prevlnum) + shiftwidth()*dent
+	"echo [lnum, indent(lnum), debt]
+	return indent(lnum) + shiftwidth() * debt
 endfunction
