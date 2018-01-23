@@ -20,7 +20,10 @@ endfunction
 
 function! s:words(lnum)
 	let out = []
-	let s1 = split(getline(a:lnum), '\v<|>')
+	let line = getline(a:lnum)
+	let line = substitute(line, '\v"%([^"]|\\.)*"', '""', "g")
+	let line = substitute(line, '\v--.*', "", "")
+	let s1 = split(line, '\v<|>')
 	for word in s1
 		" 0 on match, -1 on non-words
 		if match(word, '\v<') == -1
