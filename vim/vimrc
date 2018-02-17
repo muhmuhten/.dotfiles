@@ -1,6 +1,6 @@
 se ai noar bs=2 nocp dy=lastline enc=utf-8 hi=10000 hls is ls=2 sta wmnu
 
-se sw=0 ts=4 lbr nu nuw=7 ls=2 bk bkc=yes,breakhardlink bdir=~/.vimstore dir=~/.vimstore
+se sw=0 ts=4 lbr nu nuw=7 ls=2 bk bkc=yes,breakhardlink bdir=~/.vimstore dir=~/.vimstore cb=unnamed
 let &stl = '%F %y%r%h%w%m =%02B (%l,%v)[%L/%02p%%]'
 au BufWritePre * let &bex = strftime('@%F-%T~')
 
