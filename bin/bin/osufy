@@ -3,7 +3,7 @@ set -eu
 n=0
 for opt; do
 	case $opt in
-	(-[^-]|-??*) n=$((n+1)) ;;
+	(-[!-]|-??*) n=$((n+1)) ;;
 	(*) break ;;
 	esac
 done
