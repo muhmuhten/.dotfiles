@@ -125,5 +125,3 @@ dudusort() {
 	fi
 }
 
-springe() { cat "$@" | curl -F 'sprunge=<-' http://sprunge.us }
-splurge() { pbpaste | springe }
