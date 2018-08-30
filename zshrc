@@ -75,7 +75,6 @@ darwin*)
 	export RSYNC_ICONV=utf-8-mac,utf-8
 	alias brew='HOMEBREW_NO_ANALYTICS=1 HOMEBREW_GITHUB_API_TOKEN=`< ~/.gist` brew'
 	alias gist='gist -p'
-	alias mpv='mpv --screenshot-format=png --screenshot-template=~/Logs/caps/%F-%P'
 	;&
 freebsd*)
 	# BSD ls; largely identical colour scheme, but translation is nontrivial
