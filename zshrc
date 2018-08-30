@@ -127,7 +127,7 @@ dudusort() {
 
 git() {
 	local dir
-	dir=$PWD
+	dir=$PWD/
 	while case $dir in (/*/*) ;; (*) ! esac; do
 		dir=${dir%/*}
 		[ -f "$dir/.gitconfig" ] || continue
