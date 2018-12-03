@@ -13,7 +13,7 @@ au VimEnter * no! <S-Tab> <Tab>
 sy on
 filet plugin indent on
 
-au BufWritePost ~/public_html/*.html sil! !gzip -9kf <afile>
+au BufWritePost ~/public_html/*.css,~/Sites/*.css,~/public_html/*.html,~/Sites/*.html,~/public_html/*.js,~/Sites/*.js sil! !gzip -9kf <afile>
 
 let g:SuperTabDefaultCompletionType = 'context'
 
