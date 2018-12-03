@@ -7,6 +7,7 @@ export HOME=$HOME:A
 cd . # chase links
 export GEM_HOME=~/Sandbox/rubygems
 export PERL5LIB=~/Sandbox/perl5/lib/perl5
+export LUA_INIT='getmetatable"".__mod = string.format'
 export TZ=America/Toronto
 
 zmodload -F zsh/stat b:zstat
@@ -34,13 +35,17 @@ fi
 # okay I have no idea what to do here so give it a generous buffer
 zshaddhistory() ((HISTSIZE = SAVEHIST = HISTCMD*2+1000000))
 
-precmd() {
-	print -P "%B%F{yellow}(%n@%m) %F{blue}[%D %*] %F{green}[%!] %F{magenta}(%?) %F{cyan}(%~)%f"
-
-	case $TERM in
-	screen) print -Pn "\ek%~\e\\" ;;
+chpwd() {
+	case $TERM$UID in
+	screen0) ;;
+	screen*) tmux rename-window "`print -Pn %~`" &! ;;
 	xterm*) print -Pn "\e]2;%n@%m:%~\a" ;;
 	esac
+}
+chpwd
+
+precmd() {
+	print -P "%B%F{yellow}(%n@%m) %F{blue}[%D %*] %F{green}[%!] %F{magenta}(%?) %F{cyan}(%~)%f"
 }
 PS1='%B%#%b '
 PS2=$PS1
@@ -81,11 +86,6 @@ freebsd*)
 	export CLICOLOR=1 LSCOLORS=ExGxFxDxCxDbDeCbCeHeHb
 	export TAPE=- # default file for tar
 	alias ls='env LC_COLLATE=C ls -F'
-
-	alias fscalate=doas
-	[ -e /var/run/sudod.in ] && alias fscalate='s6-sudo /var/run/sudod.in'
-	alias zfs='fscalate zfs'
-	alias zpool='fscalate zpool'
 	;;
 
 linux-*|msys)
@@ -125,14 +125,16 @@ dudusort() {
 	fi
 }
 
-git() {
-	local dir
-	dir=$PWD/
+with_closest() {
+	local dir file; dir=$PWD/; file=$1; shift
 	while case $dir in (/*/*) ;; (*) ! esac; do
 		dir=${dir%/*}
-		[ -f "$dir/.gitconfig" ] || continue
-		(HOME=$dir exec command git "$@")
+		[ -f "$dir/$file" ] || continue
+		(HOME=$dir exec command "$@")
 		return
 	done
-	command git "$@"
+	command "$@"
 }
+
+git() with_closest .gitconfig git "$@"
+gist() (unset HOME; with_closest .gist gist "$@")
