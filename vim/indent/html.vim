@@ -6,7 +6,3 @@ let g:html_indent_autotags = join(["html","body","article","main","section",
 			\"strong","sub","sup","time","u","var","wbr",
 			\"area","keygen","rp","rt","track","wbr","content","shadow"], ",")
 let g:html_indent_inctags = join(["dialog","hgroup","slot"], ",")
-
-setl ts=2
-let s:undo = exists("b:undo_indent") ? b:undo_indent . "|" : ""
-let b:undo_indent = s:undo . "setl ts<"

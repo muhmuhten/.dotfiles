@@ -6,4 +6,4 @@
 	url = https://github.com/ervandew/supertab.git
 [submodule "vim/pack/contrib/start/vim-lua"]
 	path = vim/pack/contrib/start/vim-lua
-	url = https://github.com/muhmuhten/vim-lua.git
+	url = https://github.com/tbastos/vim-lua.git
