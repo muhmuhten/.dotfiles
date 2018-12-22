@@ -40,7 +40,7 @@ chpwd() {
 	(1*)
 		print -Pn '\ek%~\e\' ;;
 	(screen)
-		print -Pn '\ek%n@m%~\e\' ;;
+		print -Pn '\ek%n@%m:%~\e\' ;;
 	(*)
 		print -Pn '\e]2;\0%n@%m:%~\a' ;;
 	esac
