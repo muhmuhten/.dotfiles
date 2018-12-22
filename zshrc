@@ -133,8 +133,16 @@ with_closest() {
 		(HOME=$dir exec command "$@")
 		return
 	done
-	command "$@"
+	"$@"
 }
 
-git() with_closest .gitconfig git "$@"
-gist() (unset HOME; with_closest .gist gist "$@")
+make() {
+	local cmd
+	[ -f GNUmakefile ] && cmd=gmake
+	[ -f BSDmakefile ] && cmd=bmake
+	command -v "$cmd" > /dev/null || cmd=make
+	command "$cmd" "$@"
+}
+
+git() with_closest .gitconfig command git "$@"
+gist() (unset HOME; with_closest .gist command gist "$@")
