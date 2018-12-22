@@ -133,7 +133,7 @@ with_closest() {
 	while case $dir in (/*/*) ;; (*) ! esac; do
 		dir=${dir%/*}
 		[ -f "$dir/$file" ] || continue
-		(HOME=$dir exec command "$@")
+		(HOME=$dir exec "$@")
 		return
 	done
 	"$@"
