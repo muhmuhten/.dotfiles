@@ -36,15 +36,18 @@ fi
 zshaddhistory() ((HISTSIZE = SAVEHIST = HISTCMD*2+1000000))
 
 chpwd() {
-	case $TERM$UID in
-	screen0) ;;
-	screen*) tmux rename-window "`print -Pn %~`" &! ;;
-	xterm*) print -Pn "\e]2;%n@%m:%~\a" ;;
+	case ${TMUX+1}$TERM in
+	(1*)
+		print -Pn '\ek%~\e\' ;;
+	(screen)
+		print -Pn '\ek%n@m%~\e\' ;;
+	(*)
+		print -Pn '\e]2;\0%n@%m:%~\a' ;;
 	esac
 }
-chpwd
 
 precmd() {
+	chpwd
 	print -P "%B%F{yellow}(%n@%m) %F{blue}[%D %*] %F{green}[%!] %F{magenta}(%?) %F{cyan}(%~)%f"
 }
 PS1='%B%#%b '
