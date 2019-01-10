@@ -47,8 +47,8 @@ chpwd() {
 }
 
 precmd() {
-	chpwd
 	print -P "%B%F{yellow}(%n@%m) %F{blue}[%D %*] %F{green}[%!] %F{magenta}(%?) %F{cyan}(%~)%f"
+	chpwd
 }
 PS1='%B%#%b '
 PS2=$PS1
