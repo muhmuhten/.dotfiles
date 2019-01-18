@@ -6,14 +6,18 @@ let &stl = '%F %y%r%h%w%m =%02B (%l,%v)[%L/%02p%%]'
 au BufWritePre * let &bex = strftime('@%F-%T~')
 
 no U <C-r>
-se t_kB=[Z
+se t_kB=[Z t_Co=8
 " reclaim <S-Tab> from supertab
 au VimEnter * no! <S-Tab> <Tab>
 
 sy on
 filet plugin indent on
 
-au BufWritePost ~/public_html/*.css,~/Sites/*.css,~/public_html/*.html,~/Sites/*.html,~/public_html/*.js,~/Sites/*.js sil! !gzip -9kf <afile>
+"au BufWritePost ~/public_html/*.css,~/Sites/*.css,~/public_html/*.html,~/Sites/*.html,~/public_html/*.js,~/Sites/*.js sil! !gzip -9kf <afile>
+"au BufWritePost ~/Sites/*/files/* sil !(a=`realpath '<afile>'` && cd "${a\%\%/files/*}" && if make "only=*/${a\#\#*/}*" > make.err 2>&1; then mv make.err make.ok; else sed "`printf 's/^/\r/'`" make.err; fi) &
+
+au BufEnter ~/Sites/* let &mp = "make -C ".substitute(substitute(findfile('BSDmakefile', '.;'), '[^/]*$', '.', ''), '/\.$', '', '')
+au BufWritePost ~/Sites/*/files/* exe "sil !cd ".substitute(&mp, '.* ', '', '').";e=_make.err;if make > $e 2>&1; then rm -f $e; else sed $'s/^/\r/' $e; fi &"
 
 let g:SuperTabDefaultCompletionType = 'context'
 
