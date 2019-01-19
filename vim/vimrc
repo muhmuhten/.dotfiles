@@ -6,7 +6,7 @@ let &stl = '%F %y%r%h%w%m =%02B (%l,%v)[%L/%02p%%]'
 au BufWritePre * let &bex = strftime('@%F-%T~')
 
 no U <C-r>
-se t_kB=[Z t_Co=8
+se t_kB=[Z
 " reclaim <S-Tab> from supertab
 au VimEnter * no! <S-Tab> <Tab>
 
