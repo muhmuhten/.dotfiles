@@ -1,7 +1,6 @@
 setopt auto_pushd chase_links extended_glob interactive_comments
 setopt magic_equal_subst multios rc_quotes rm_star_silent
-setopt hist_ignore_dups hist_ignore_space hist_reduce_blanks
-setopt share_history extended_history
+setopt hist_ignore_space hist_reduce_blanks share_history extended_history
 
 export HOME=$HOME:A
 cd . # chase links
