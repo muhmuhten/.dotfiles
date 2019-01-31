@@ -3,7 +3,7 @@ se ai noar bs=2 nocp dy=lastline enc=utf-8 hi=10000 hls is ls=2 sta wmnu
 se fencs=ucs-bom,utf-8,sjis,cp932,euc-jp,cp936,latin1
 se sw=0 ts=4 lbr nu nuw=7 ls=2 bk bkc=yes,breakhardlink bdir=~/.vimstore dir=~/.vimstore cb=unnamed cm=blowfish2
 let &stl = '%F %y%r%h%w%m =%02B (%l,%v)[%L/%02p%%]'
-au BufWritePre * let &bex = strftime('@%F-%T~')
+au BufWritePre * se bdir=~/.vimstore | let &bdir .= strftime("/%Y/").expand("%:t")."~" | let &bex = strftime('@%F-%T~').mkdir(&bdir, "p").b:changedtick
 
 no U <C-r>
 se t_kB=[Z

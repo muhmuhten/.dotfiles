@@ -42,7 +42,7 @@ chpwd() {
 		print -Pn '\ek%n@%m:%~\e\' ;;
 	(*)
 		print -Pn '\e]2;%n@%m:%~\a' ;;
-	esac
+	esac >&2
 }
 
 precmd() {
