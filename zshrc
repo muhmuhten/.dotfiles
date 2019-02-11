@@ -9,20 +9,11 @@ export PERL5LIB=~/Sandbox/perl5/lib/perl5
 export LUA_INIT='getmetatable"".__mod = string.format'
 export TZ=America/Toronto
 
-zmodload -F zsh/stat b:zstat
-zstat -H bintime +mtime ~/.bin
-#sentinel at the end is like 7x faster, for about half of so execution time
-if [ "$dyntime" != "$bintime" ]; then
-	dyntime=$bintime
-	dynpath=(`find -L ~/.bin -maxdepth 1 -type d 2> /dev/null`)
-fi
-unset bintime
-
 # some systems have links or weirder with /bin -> /usr/bin or /usr -> /
 if [[ /bin -ef /usr/bin ]]; then
-	path=($dynpath /{usr/local/,usr/}{s,}bin)
+	path=(~/.bin/*(N-/) /{usr/local/,usr/}{s,}bin)
 else
-	path=($dynpath /{usr/local/,,usr/}{s,}bin)
+	path=(~/.bin/*(N-/) /{usr/local/,,usr/}{s,}bin)
 fi
 export PATH
 
