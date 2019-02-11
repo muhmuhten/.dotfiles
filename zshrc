@@ -9,12 +9,7 @@ export PERL5LIB=~/Sandbox/perl5/lib/perl5
 export LUA_INIT='getmetatable"".__mod = string.format'
 export TZ=America/Toronto
 
-# some systems have links or weirder with /bin -> /usr/bin or /usr -> /
-if [[ /bin -ef /usr/bin ]]; then
-	path=(~/.bin/*(N-/) /{usr/local/,usr/}{s,}bin)
-else
-	path=(~/.bin/*(N-/) /{usr/local/,,usr/}{s,}bin)
-fi
+path=(~/.bin/*(N-/) /{usr/local/,,usr/}{s,}bin)
 export PATH
 
 if [ ! ${HISTFILE+1} ]; then
