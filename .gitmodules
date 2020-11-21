@@ -7,6 +7,12 @@
 [submodule "vim/pack/contrib/start/supertab"]
 	path = vim/pack/contrib/start/supertab
 	url = https://github.com/ervandew/supertab.git
+[submodule "vim/pack/contrib/start/vim-javascript"]
+	path = vim/pack/contrib/start/vim-javascript
+	url = https://github.com/pangloss/vim-javascript.git
 [submodule "vim/pack/contrib/start/vim-lua"]
 	path = vim/pack/contrib/start/vim-lua
 	url = https://github.com/tbastos/vim-lua.git
+[submodule "vim/pack/contrib/start/vimwiki"]
+	path = vim/pack/contrib/start/vimwiki
+	url = https://github.com/vimwiki/vimwiki.git
