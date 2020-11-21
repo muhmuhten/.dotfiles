@@ -1,25 +1,18 @@
 se ai noar bs=2 nocp dy=lastline enc=utf-8 hi=10000 hls is ls=2 sta wmnu
-
-se fencs=ucs-bom,utf-8,sjis,cp932,euc-jp,cp936,latin1
-se sw=0 ts=4 lbr nu nuw=7 ls=2 bk bkc=yes,breakhardlink bdir=~/.vimstore dir=~/.vimstore udir=~/.vimstore udf cb=unnamed cm=blowfish2
+se sw=0 ts=3 lbr nu nuw=7 ls=2
 let &stl = '%F %y%r%h%w%m =%02B (%l,%v)[%L/%02p%%]'
+se cino=:0,l1 cm=blowfish2 fencs=ucs-bom,utf-8,sjis,cp932,euc-jp,cp936,latin1
+se bdir=~/.vimstore bk bkc=yes,breakhardlink dir=~/.vimstore udir=~/.vimstore udf
 au BufWritePre * se bdir=~/.vimstore | let &bdir .= strftime("/%Y/").expand("%:t")."~" | sil! cal mkdir(&bdir, 'p') | let &bex = strftime('@%F-%T~').b:changedtick
 
 no U <C-r>
-se t_kB=[Z
+se t_kB=[Z vb t_vb=
+
 " reclaim <S-Tab> from supertab
 au VimEnter * no! <S-Tab> <Tab>
 
 sy on
 filet plugin indent on
-
-"au BufWritePost ~/public_html/*.css,~/Sites/*.css,~/public_html/*.html,~/Sites/*.html,~/public_html/*.js,~/Sites/*.js sil! !gzip -9kf <afile>
-"au BufWritePost ~/Sites/*/files/* sil !(a=`realpath '<afile>'` && cd "${a\%\%/files/*}" && if make "only=*/${a\#\#*/}*" > make.err 2>&1; then mv make.err make.ok; else sed "`printf 's/^/\r/'`" make.err; fi) &
-
-au BufEnter */jq/*,*/jq-2/* se ts=2 et
-
-au BufEnter ~/Sites/* let &mp = "make -C ".substitute(substitute(findfile('BSDmakefile', '.;'), '[^/]*$', '.', ''), '/\.$', '', '')
-au BufWritePost ~/Sites/*/files/* exe "sil !cd ".substitute(&mp, '.* ', '', '').";e=_make.err;if make > $e 2>&1; then rm -f $e; else sed $'s/^/\r/' $e; fi &"
 
 let g:SuperTabDefaultCompletionType = 'context'
 
