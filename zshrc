@@ -20,7 +20,8 @@ fi
 # okay I have no idea what to do here so give it a generous buffer
 zshaddhistory() ((HISTSIZE = SAVEHIST = HISTCMD*2+1000000))
 
-chpwd() {
+precmd() {
+	print -P "%B%F{yellow}(%n@%m) %F{blue}[%D %*] %F{green}[%!] %F{magenta}(%?) %F{cyan}(%~)%f"
 	case ${TMUX+1}$TERM in
 	(1*)
 		print -Pn '\ek%~\e\' ;;
@@ -29,11 +30,6 @@ chpwd() {
 	(*)
 		print -Pn '\e]2;%n@%m:%~\a' ;;
 	esac >&2
-}
-
-precmd() {
-	print -P "%B%F{yellow}(%n@%m) %F{blue}[%D %*] %F{green}[%!] %F{magenta}(%?) %F{cyan}(%~)%f"
-	chpwd
 }
 PS1='%B%#%b '
 PS2=$PS1
@@ -66,8 +62,8 @@ zstyle ':completion:*' group-name ''
 case $OSTYPE in
 darwin*)
 	export RSYNC_ICONV=utf-8-mac,utf-8
-	alias brew='HOMEBREW_NO_ANALYTICS=1 HOMEBREW_GITHUB_API_TOKEN=`< ~/.gist` brew'
-	alias gist='gist -p'
+	alias brew='HOMEBREW_NO_ANALYTICS=1 brew'
+	alias sudo='sudo -u cleric sudo '
 	;&
 freebsd*)
 	# BSD ls; largely identical colour scheme, but translation is nontrivial
@@ -133,4 +129,3 @@ make() {
 }
 
 git() with_closest .gitconfig command git "$@"
-gist() (unset HOME; with_closest .gist command gist "$@")
