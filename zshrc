@@ -6,6 +6,7 @@ export HOME=$HOME:A
 cd . # chase links
 export GEM_HOME=~/Sandbox/rubygems
 export PERL5LIB=~/Sandbox/perl5/lib/perl5
+export PKG_CONFIG_PATH=~/Sandbox/pkg-config
 export LUA_INIT='getmetatable"".__mod = string.format'
 export TZ=America/Toronto
 
@@ -71,7 +72,11 @@ freebsd*)
 	export TAPE=- # default file for tar
 	alias ls='env LC_COLLATE=C ls -F'
 	;;
-
+linux-android)
+	path=(~/.bin/*(N-/) /data/data/com.termux/files/usr/bin{,/applets})
+	zstyle ':completion:*' accept-exact-dirs on
+	zstyle ':completion:*' fake-files /:sdcard /:data /data:data /data/data:com.termux
+	;&
 linux-*|msys)
 	# GNU ls, hopefully; busybox lacks -N, but it's not worth testing for
 	export LS_COLORS="${list_colors// /:}"
