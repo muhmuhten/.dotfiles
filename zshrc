@@ -130,7 +130,7 @@ make() {
 	local cmd
 	if [ -f BSDmakefile ]; then
 		cmd=bmake
-		set ".MAKE.MAKEFILE_PREFERENCE ?= BSDMakefile makefile Makefile" "$@"
+		set ".MAKE.MAKEFILE_PREFERENCE = BSDMakefile makefile Makefile" "$@"
 	elif [ -f GNUmakefile ]; then
 		cmd=gmake
 	fi
