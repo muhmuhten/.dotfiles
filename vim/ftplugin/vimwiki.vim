@@ -5,6 +5,7 @@ let g:vimwiki_global_vars.conceallevel = 0
 call vimwiki#u#map_key('n', '<Esc>OM', '<Plug>VimwikiFollowLink')
 call vimwiki#u#map_key('n', '<CR>', '<Plug>VimwikiTabnewLink')
 call vimwiki#u#map_key('n', '<Esc>[3~', '<Plug>VimwikiGoBackLink')
+call vimwiki#u#map_key('n', '<Leader>w<Leader>c', ':VimwikiTable<CR>')
 
 function! vimwiki#base#system_open_link(url) abort
   try

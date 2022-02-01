@@ -1,9 +1,9 @@
 se ai noar bs=2 nocp dy=lastline enc=utf-8 hi=10000 hls is ls=2 sta wmnu
-se sw=0 ts=3 lbr nu nuw=7 ls=2
+se sw=0 ts=3 nojs lbr nu nuw=7 ls=2 scs ic
 let &stl = '%F %y%r%h%w%m =%02B (%l,%v)[%L/%02p%%]'
 se cino=:0,l1 cm=blowfish2 fencs=ucs-bom,utf-8,sjis,cp932,euc-jp,cp936,latin1
 se bdir=~/.vimstore bk bkc=yes,breakhardlink dir=~/.vimstore udir=~/.vimstore udf
-au BufWritePre * se bdir=~/.vimstore | let &bdir .= strftime("/%Y/").expand("%:t")."~" | sil! cal mkdir(&bdir, 'p') | let &bex = strftime('@%F-%T~').b:changedtick
+au BufWritePre * se bdir=~/.vimstore | let &bdir .= escape(strftime("/%Y/").expand("%:t")."~", ",\\") | sil! cal mkdir(&bdir, 'p') | let &bex = strftime('@%F-%T~').b:changedtick
 
 no U <C-r>
 se t_kB=[Z vb t_vb=

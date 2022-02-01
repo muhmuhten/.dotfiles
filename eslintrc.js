@@ -1,6 +1,6 @@
 /* global module */
 module.exports = {
-	"env": {"es2020": true},
+	"env": {"es2021": true},
 	"extends": "eslint:recommended",
 	"ignorePatterns": ["!.eslintrc.js"],
 	"parserOptions": {"sourceType": "module"},

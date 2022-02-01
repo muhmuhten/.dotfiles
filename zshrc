@@ -96,8 +96,9 @@ command -v sudo > /dev/null && alias doas='sudo '
 rm() {
 	# avoid rm -r prompting when the only read-only things are git objects
 	local arg
-	if [ -n "${@[(r)-r]}" ]; then
+	if [ -n "${@[(r)-r]}" ]; then # checks if "-r" appears among the flags
 		for arg; do
+			# I mean ok, if there's a dir named "-r", we'll try to chmod -r/.git &c....
 			[ -d "$arg" ] && find "$arg" -type d -name '*.git' -exec chmod -R u+w {}/objects \;
 		done
 	fi
@@ -127,8 +128,12 @@ with_closest() {
 
 make() {
 	local cmd
-	[ -f GNUmakefile ] && cmd=gmake
-	[ -f BSDmakefile ] && cmd=bmake
+	if [ -f BSDmakefile ]; then
+		cmd=bmake
+		set ".MAKE.MAKEFILE_PREFERENCE ?= BSDMakefile makefile Makefile" "$@"
+	elif [ -f GNUmakefile ]; then
+		cmd=gmake
+	fi
 	command -v "$cmd" > /dev/null || cmd=make
 	command "$cmd" "$@"
 }

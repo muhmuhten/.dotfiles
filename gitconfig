@@ -5,6 +5,9 @@
 [clean]
 	requireForce = no
 
+[merge]
+	conflictstyle = diff3
+
 [push]
 	default = simple
 
@@ -16,3 +19,4 @@
 
 [core]
 	excludesFile = ~/.dotfiles/gitignore_
+	quotepath = off
