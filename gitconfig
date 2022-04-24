@@ -20,3 +20,15 @@
 [core]
 	excludesFile = ~/.dotfiles/gitignore_
 	quotepath = off
+
+# *DO NOT* enable poorly-conceived shell git integrations with this, to avoid
+# theoretical code execution (cf. 8959555cee7ec045958f9b6dd62e541affb7e7d9) in
+# untrusted repos. I say theoretical because it requires
+# - The repo *metadata* (not normally pulled) must be compromised, normally
+# only feasible on shared filesystems unless the attacker has arbitrary access
+# to the filesystem, in which case they might as well overwrite ~/.profile
+# - We don't use a so-called "Git-enabled `PS1`" anyway, and won't use one that
+# executes arbitrary code from the git dir unless I suffer a catastrophic lapse
+# of taste and also forget about this
+[safe]
+	directory = *
