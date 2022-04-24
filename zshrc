@@ -22,7 +22,7 @@ fi
 zshaddhistory() ((HISTSIZE = SAVEHIST = HISTCMD*2+1000000))
 
 precmd() {
-	print -P "%B%F{yellow}(%n@%m) %F{blue}[%D %*] %F{green}[%!] %F{magenta}(%?) %F{cyan}(%~)%f"
+	print -P "%B%F{yellow}(%n@%m) %F{blue}[%D{%F %T}] %F{green}[%!] %F{magenta}(%?) %F{cyan}(%~)%f"
 	case ${TMUX+1}$TERM in
 	(1*)
 		print -Pn '\ek%~\e\' ;;
@@ -63,7 +63,7 @@ zstyle ':completion:*' group-name ''
 case $OSTYPE in
 darwin*)
 	export RSYNC_ICONV=utf-8-mac,utf-8
-	alias brew='HOMEBREW_NO_ANALYTICS=1 brew'
+	alias brew='HOMEBREW_NO_ANALYTICS=1 sudo -iu cleric brew'
 	alias sudo='sudo -u cleric sudo '
 	;&
 freebsd*)
