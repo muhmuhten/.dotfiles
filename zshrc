@@ -10,8 +10,11 @@ export PKG_CONFIG_PATH=~/Sandbox/pkg-config
 export LUA_INIT='getmetatable"".__mod = string.format'
 export TZ=America/Toronto
 
-path=(~/.bin/*(N-/) /{usr/local/,,usr/}{s,}bin)
+path=(~/.bin/*(N-/) ~/Sandbox/*/bin(N) /{usr/local/,,usr/}{s,}bin)
 export PATH
+
+manpath=(~/Sandbox/*/share/man(N) "")
+export MANPATH
 
 if [ ! ${HISTFILE+1} ]; then
 	HISTFILE=~/.zsh_history
@@ -77,7 +80,7 @@ freebsd*)
 	alias ls='env LC_COLLATE=C ls -F'
 	;;
 linux-android)
-	path=(~/.bin/*(N-/) /data/data/com.termux/files/usr/bin{,/applets})
+	path=(~/.bin/*(N-/) ~/Sandbox/*/bin(N) /data/data/com.termux/files/usr/bin{,/applets})
 	zstyle ':completion:*' accept-exact-dirs on
 	zstyle ':completion:*' fake-files /:sdcard /:data /data:data /data/data:com.termux
 	;&
