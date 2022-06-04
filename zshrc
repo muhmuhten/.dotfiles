@@ -97,6 +97,7 @@ command -v vim > /dev/null && EDITOR=vim || EDITOR=vi
 export EDITOR PAGER=less LESS=MR
 
 alias so='. ~/.zshrc'
+alias rg='rg -S'
 alias doas='doas '
 command -v sudo > /dev/null && alias doas='sudo '
 
