@@ -1,0 +1,24 @@
+#!/bin/sh
+for p; do
+	echo "$p"
+	[ "${p%.mkv}.ass" -nt "$p" ] && continue
+	mkvmerge -i "$p" | {
+		set --
+		while read line; do
+			case $line in
+			(*SubStationAlpha*)
+				id=${line%%:*}
+				id=${id##* }
+				ass=${p%.mkv}-$id.ass
+				set "$@" "$id:$ass" ;;
+			esac
+		done
+		case $# in
+		(0) ;;
+		(1) set "${1%-*}.ass" ;;
+		(*) ln -s "$ass" "${p%.mkv}.ass" ;;
+		esac
+		exec mkvextract tracks "$p" "$@"
+	} &
+done
+wait
