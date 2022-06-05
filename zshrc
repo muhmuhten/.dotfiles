@@ -53,13 +53,13 @@ if ! PATH= command -v compinit > /dev/null; then
 	autoload compinit
 	case $UID,$OSTYPE in
 	0,*) compinit -D -i ;;
-	*,darwin) compinit -d ~/".${ZSH_PATCHLEVEL}_compdump-$USER@$HOST" -u ;;
-	*,*) compinit -d ~/".${ZSH_PATCHLEVEL}_compdump-$USER@$HOST" -i ;;
+	*,darwin) compinit -d ~/".zsh-${ZSH_PATCHLEVEL#(zsh-|*/)}_compdump-$USER@$HOST" -u ;;
+	*,*) compinit -d ~/".zsh-${ZSH_PATCHLEVEL#(zsh-|*/)}_compdump-$USER@$HOST" -i ;;
 	esac
 fi
 
 list_colors='di=1;34 ln=1;36 or=1;36;40 mi=1;31 so=1;35 pi=1;33 ex=1;32 bd=1;33;41 cd=1;33;44 su=1;32;41 sg=1;32;44 tw=1;37;44 ow=1;37;41'
-zstyle ':completion:*' cache-path ~/".${ZSH_PATCHLEVEL}_compcache-$USER@$HOST"
+zstyle ':completion:*' cache-path ~/".zsh-${ZSH_PATCHLEVEL#(zsh-|*/)}_compcache-$USER@$HOST"
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' completer _complete _ignored _match _correct _prefix _approximate
 zstyle ':completion:*' max-errors 2
