@@ -20,9 +20,6 @@ install_files() {
 				[ -e "$dest" ] || mkdir -v "$dest"
 				(here=../$here install_files "$dot"/* "$dot"/.*)
 				;;
-			*/.install.*)
-				(cd ${dest%/*}; "$file")
-				;;
 			*) [ -e "$dest" ] || ln -sv "$file" "$dest" ;;
 		esac
 	done
