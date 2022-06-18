@@ -1,0 +1,4 @@
+Include ~/.ssh/config.d/*
+Compression yes
+SendEnv LANG LC_*
+StrictHostKeyChecking accept-new
