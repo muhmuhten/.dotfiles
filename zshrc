@@ -10,11 +10,8 @@ export PKG_CONFIG_PATH=~/Sandbox/pkg-config
 export LUA_INIT='getmetatable"".__mod = string.format'
 export TZ=America/Toronto
 
-path=(~/.bin/*(N-/) ~/Sandbox/*/bin(N) /{usr/local/,,usr/}{s,}bin)
-export PATH
-
-manpath=(~/Sandbox/*/share/man(N) "")
-export MANPATH
+export -U PATH path=(~/.bin/*(DN-/:A) {~/Sandbox/*,/opt/*,/usr/local,,/usr}/{s,}bin(N:A))
+export -U MANPATH manpath=(~/Sandbox/*/share/man(N:A) /opt/{share/,}man(N:A) "")
 
 if [ ! ${HISTFILE+1} ]; then
 	HISTFILE=~/.zsh_history
