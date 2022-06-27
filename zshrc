@@ -13,6 +13,12 @@ export TZ=America/Toronto
 export -U PATH path=(~/.bin/*(DN-/:A) {~/Sandbox/*,/opt/*,/usr/local,,/usr}/{s,}bin(N:A))
 export -U MANPATH manpath=(~/Sandbox/*/share/man(N:A) /opt/{share/,}man(N:A) "")
 
+if [ ${TMUX+1} ] && ! [ -S "${SSH_AUTH_SOCK-}" ] && command -v s6-ipcclient > /dev/null; then
+	export SSH_AUTH_SOCK=$(X='exec s6-ipcclient "${TMUX%,*,*}" wait -t 900000 "" sh -c "$X"' \
+		ssh-agent sh -c 'printf "%s\\n" "$SSH_AUTH_SOCK"; eval "$X" >&2' &)
+	tmux setenv SSH_AUTH_SOCK "$SSH_AUTH_SOCK"
+fi
+
 if [ ! ${HISTFILE+1} ]; then
 	HISTFILE=~/.zsh_history
 	: >> "$HISTFILE"
