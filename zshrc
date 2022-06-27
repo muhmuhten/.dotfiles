@@ -53,7 +53,7 @@ if ! PATH= command -v compinit > /dev/null; then
 	autoload compinit
 	case $UID,$OSTYPE in
 	0,*) compinit -D -i ;;
-	*,darwin) compinit -d ~/".zsh-${ZSH_PATCHLEVEL#(zsh-|*/)}_compdump-$USER@$HOST" -u ;;
+	*,darwin*) compinit -d ~/".zsh-${ZSH_PATCHLEVEL#(zsh-|*/)}_compdump-$USER@$HOST" -u ;;
 	*,*) compinit -d ~/".zsh-${ZSH_PATCHLEVEL#(zsh-|*/)}_compdump-$USER@$HOST" -i ;;
 	esac
 fi
