@@ -13,7 +13,7 @@ export TZ=America/Toronto
 export -U PATH path=(~/.bin/*(DN-/:A) {~/Sandbox/*,/opt/*,/usr/local,,/usr}/{s,}bin(N:A))
 export -U MANPATH manpath=(~/Sandbox/*/share/man(N:A) /opt/{share/,}man(N:A) "")
 
-if [ ${TMUX+1} ] && ! [ -S "${SSH_AUTH_SOCK-}" ]; then
+if [ ${TMUX+1},${SSH_AUTH_SOCK+1} = 1, ]; then
 	export SSH_AUTH_SOCK=$(ssh-agent sh -c 'echo "$SSH_AUTH_SOCK"; exec tmux wait kill-agent >&2' &)
 	tmux setenv -u SSH_AUTH_SOCK
 	tmux setenv -g SSH_AUTH_SOCK "$SSH_AUTH_SOCK"
