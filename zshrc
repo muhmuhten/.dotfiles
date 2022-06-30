@@ -102,6 +102,7 @@ export EDITOR PAGER=less LESS=MR
 alias so='. ~/.zshrc'
 alias rg='rg -S'
 alias doas='doas '
+command -v bsdtar > /dev/null && alias tar=bsdtar
 command -v sudo > /dev/null && alias doas='sudo '
 
 rm() {
