@@ -80,7 +80,7 @@ freebsd*)
 	# BSD ls; largely identical colour scheme, but translation is nontrivial
 	export CLICOLOR=1 LSCOLORS=ExGxFxDxCxDbDeCbCeHeHb
 	export TAPE=- # default file for tar
-	alias ls='env LC_COLLATE=C ls -F'
+	alias ls='LC_COLLATE=C ls -F'
 	;;
 linux-android)
 	path=(~/.bin/*(N-/) ~/Sandbox/*/bin(N) /data/data/com.termux/files/usr/bin{,/applets})
@@ -90,7 +90,7 @@ linux-android)
 linux-*|msys)
 	# GNU ls, hopefully; busybox lacks -N, but it's not worth testing for
 	export LS_COLORS="${list_colors// /:}"
-	alias ls="ls --color=auto -FN"
+	alias ls='LC_COLLATE=C ls --color=auto -FN'
 	;;
 esac
 unset list_colors
