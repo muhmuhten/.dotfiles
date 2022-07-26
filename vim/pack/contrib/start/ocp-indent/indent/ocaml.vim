@@ -4,7 +4,7 @@ if exists("b:did_indent")
 endif
 let b:did_indent = 1
 
-setlocal expandtab
+"setlocal expandtab
 setlocal indentkeys+=0=and,0=class,0=constraint,0=done,0=else,0=end,0=exception,0=external,0=if,0=in,0=include,0=inherit,0=initializer,0=let,0=method,0=open,0=then,0=type,0=val,0=with,0;;,0>\],0\|\],0>},0\|,0},0\],0)
 setlocal nolisp
 setlocal nosmartindent
@@ -37,11 +37,11 @@ function! GetOcpIndent(lnum)
   else
     " Compute indentation from current line on
     let cmdline = "ocp-indent --numeric --indent-empty --lines " . a:lnum . '-'
-    let s:indents = split(system(cmdline, getline('1','$')))
+    let s:indents = split(system(cmdline, map(getline('1','$'), 'substitute(v:val, "\t", "  ", "g")')))
     let s:buffer = bufnr('')
     let s:tick = b:changedtick
   endif
   let s:lnum = a:lnum
 
-  return s:indents[0]
+  return s:indents[0] / 2 * shiftwidth()
 endfunction
