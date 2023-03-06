@@ -73,14 +73,14 @@ zstyle ':completion:*' group-name ''
 case $OSTYPE in
 darwin*)
 	export RSYNC_ICONV=utf-8-mac,utf-8
-	alias brew='HOMEBREW_NO_ANALYTICS=1 sudo -iu cleric brew'
-	alias sudo='sudo -u cleric sudo '
+	alias brew='env HOMEBREW_NO_ANALYTICS=1 brew'
+	alias sudo='sudo '
 	;&
 freebsd*)
 	# BSD ls; largely identical colour scheme, but translation is nontrivial
 	export CLICOLOR=1 LSCOLORS=ExGxFxDxCxDbDeCbCeHeHb
 	export TAPE=- # default file for tar
-	alias ls='LC_COLLATE=C ls -F'
+	alias ls='env LC_COLLATE=C ls -F'
 	;;
 linux-android)
 	path=(~/.bin/*(N-/) ~/Sandbox/*/bin(N) /data/data/com.termux/files/usr/bin{,/applets})
@@ -90,7 +90,7 @@ linux-android)
 linux-*|msys)
 	# GNU ls, hopefully; busybox lacks -N, but it's not worth testing for
 	export LS_COLORS="${list_colors// /:}"
-	alias ls='LC_COLLATE=C ls --color=auto -FN'
+	alias ls='env LC_COLLATE=C ls --color=auto -FN'
 	;;
 esac
 unset list_colors
