@@ -7,6 +7,7 @@ cd . # chase links
 export GEM_HOME=~/Sandbox/rubygems
 export PERL5LIB=~/Sandbox/perl5/lib/perl5
 export PKG_CONFIG_PATH=~/Sandbox/pkg-config
+export JQ_COLORS='1;30:0;39:0;39:0;39:0;32:1;39:1;39'
 export LUA_INIT='getmetatable"".__mod = string.format'
 export TZ=America/Toronto
 
