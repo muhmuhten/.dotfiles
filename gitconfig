@@ -32,3 +32,6 @@
 # of taste and also forget about this
 [safe]
 	directory = *
+
+[status]
+	submoduleSummary = true

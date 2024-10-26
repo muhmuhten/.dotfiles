@@ -1,6 +1,6 @@
 /* global module */
 module.exports = {
-	"env": {"es2021": true},
+	"env": {"es2021": true, "node": true, "browser": true},
 	"extends": "eslint:recommended",
 	"ignorePatterns": ["!.eslintrc.js"],
 	"parserOptions": {"sourceType": "module"},
@@ -77,7 +77,7 @@ module.exports = {
 		"quotes": [2],
 		"semi": [2],
 		"semi-spacing": [2],
-		"sort-keys": [1],
+		"sort-keys": [0],
 		"sort-vars": [1],
 		"space-before-blocks": [1],
 		"space-before-function-paren": [2],
