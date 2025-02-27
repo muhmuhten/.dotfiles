@@ -6,4 +6,4 @@ SendEnv LANG LC_*
 ServerAliveCountMax 1
 ServerAliveInterval 10
 StrictHostKeyChecking accept-new
-VerifyHostKeyDNS yes
+#VerifyHostKeyDNS yes
