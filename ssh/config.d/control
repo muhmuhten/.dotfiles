@@ -1,0 +1,3 @@
+ControlPath ~/.sshctl-%C.sock
+ControlMaster auto
+ControlPersist 5m
