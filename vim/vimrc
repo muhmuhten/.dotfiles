@@ -1,5 +1,5 @@
 se ai noar bs=2 nocp dy=lastline enc=utf-8 hi=10000 hls is ls=2 sta wmnu
-se sw=0 ts=3 nojs lbr nu nuw=7 ls=2 scs ic mouse=
+se sw=0 ts=3 nojs lbr nu nuw=7 ls=2 so=1 scs ic mouse=
 let &stl = '%F %y%r%h%w%m =%02B (%l,%v)[%L/%02p%%]'
 se cino=:0,l1 cm=blowfish2 fencs=ucs-bom,utf-8,sjis,cp932,euc-jp,cp936,latin1
 se bdir=~/.vimstore bk bkc=yes,breakhardlink dir=~/.vimstore udir=~/.vimstore udf
